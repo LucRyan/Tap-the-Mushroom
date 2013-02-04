@@ -1,7 +1,11 @@
 package ;
 
+import nme.display.Bitmap;
 import nme.display.Sprite;
+import nme.display.StageAlign;
+import nme.display.StageScaleMode;
 import nme.events.Event;
+import nme.Assets;
 import nme.Lib;
 
 /**
@@ -11,7 +15,7 @@ import nme.Lib;
 
 class Main extends Sprite 
 {
-	
+
 	public function new() 
 	{
 		super();
@@ -25,6 +29,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
+		Lib.current.addChild (new TapThemAll());
 	}
 	
 	static public function main() 

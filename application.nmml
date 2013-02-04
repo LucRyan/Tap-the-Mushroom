@@ -15,10 +15,12 @@
 	<!-- classpath, haxe libs -->
 	<source path="src" />
 	<haxelib name="nme" />
+	<haxelib name="actuate" />
 	
 	<!-- assets -->
 	<icon path="assets/nme.svg" />
 	<assets path="assets/img" rename="img" />
+	<assets path="assets/img/TapThemAll" rename="TapThemAll" />
 	
 	<!-- DLLs -->
 	<ndll name="std" />
