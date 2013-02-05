@@ -1,4 +1,4 @@
-package ;
+package;
 
 import nme.display.Bitmap;
 import nme.display.Sprite;
@@ -7,6 +7,9 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
+import tap.LevelScene;
+
+
 
 /**
  * ...
@@ -29,7 +32,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		Lib.current.addChild (new TapThemAll());
+		Lib.current.addChild (new LevelScene());
 	}
 	
 	static public function main() 
