@@ -1,15 +1,15 @@
-package tap.mushroom;
+package game.tap.mushroom;
 import format.display.MovieClip;
 import nme.Assets;
 import nme.display.Sprite;
-
+import engine.objects.TouchableObject;
 
 /**
  * ...
  * @author Yang Wang
  */
 
-class GreenBlueMushroom extends Sprite, implements Mushroom
+class GreenBlueMushroom extends TouchableObject, implements Mushroom
 {
 
 	public function new() 

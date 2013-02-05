@@ -1,4 +1,4 @@
-package tap.mushroom;
+package game.tap.mushroom;
 
 
 /**

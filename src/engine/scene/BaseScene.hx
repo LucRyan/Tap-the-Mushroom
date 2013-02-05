@@ -1,4 +1,4 @@
-package ;
+package engine.scene;
 
 import nme.display.Bitmap;
 import nme.display.Sprite;
@@ -30,12 +30,16 @@ class BaseScene extends Sprite
 	//This function will be called when the sprite Added to current Stage.
 	private function construct() : Void {}
 	
-	//This function will be called when the window be resized.
+	/**
+	 * This function will be called when the window be resized.
+	 */
 	private function resize() : Void {
 		resizeBackground();	// Resize the backgroun image correspond with screen size.
 	}
 	
-	//This function will resize the background when the screen been resized.
+	/**
+	 * This function will resize the background when the screen been resized.
+	 */
 	private function resizeBackground () : Void {
 		if(background != null){
 			//Size
@@ -50,7 +54,11 @@ class BaseScene extends Sprite
 		}
 	}
 	
-	//Load Background image from filepath
+	/**
+	 * Load Background image from filepath
+	 * 
+	 * @param	backgroundPath is the file path of background image.
+	 */
 	private function loadBackground (backgroundPath : String) : Void {
 		background = new Bitmap (Assets.getBitmapData (backgroundPath));
 	}

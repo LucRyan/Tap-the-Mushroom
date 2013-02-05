@@ -7,7 +7,7 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
-import tap.LevelScene;
+import game.tap.LevelScene;
 
 
 

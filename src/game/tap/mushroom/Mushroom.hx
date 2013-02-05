@@ -1,4 +1,4 @@
-package tap.mushroom;
+package game.tap.mushroom;
 
 import format.display.MovieClip;
 import nme.display.Bitmap;
