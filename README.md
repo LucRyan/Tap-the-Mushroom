@@ -5,7 +5,7 @@ Tap-the-Mushroom
 
 Tap the Mushroom is a puzzle game which contains various kinds of stages and diverse mini-games filled with achievements to keep you coming back for more. Different level will require you to tap, to slide and to do other possible actions on the way of getting puzzles solved as well as kinds of achievements. In this game, it will test your reflection and memory in the funniest way. Easy to pick-up yet challenging to master.
 
-#GAMEPLAY HIGHLIGHTS
+##GAMEPLAY HIGHLIGHTS
 - Touch to interact.
 - Multiple levels of different mini game ( First version will contains 3 different mini games)
 - Easy to get 3 stars but player will challenged to get 5 stars and achievement.
