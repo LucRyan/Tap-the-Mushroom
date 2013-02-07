@@ -1,6 +1,8 @@
 package game.tap;
 
+import engine.scene.LevelScene;
 import format.display.MovieClip;
+
 import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.display.StageAlign;
@@ -8,12 +10,14 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Assets;
 import nme.events.TimerEvent;
+import nme.events.MouseEvent;
 import nme.Lib;
 import com.eclecticdesignstudio.motion.Actuate;
 import nme.utils.Timer;
 
-import game.tap.mushroom.MushroomFactory;
-import game.tap.mushroom.Mushroom;
+import game.tap.util.MushroomFactory;
+import game.tap.mushroom.IMushroom;
+import game.tap.util.MushroomPlanter;
 import engine.scene.BaseScene;
 
 
@@ -22,10 +26,10 @@ import engine.scene.BaseScene;
  * @author Yang Wang
  */
 
-class LevelScene extends BaseScene
+class TapemALvl extends LevelScene
 {
 	
-	var mushroomPool : Array<Mushroom> ; // The 40 mushrooms container. 
+	var mushroomPool : Array<IMushroom> ; // The 40 mushrooms container. 
 	var mushPlanter : MushroomPlanter; // The planter instance.
 	var tempAnimationIndex : Int; // The index need by animation.
 	var animationTimer : Timer;  // The Timer controls whole animation loop.
@@ -38,7 +42,9 @@ class LevelScene extends BaseScene
 	}
 	
 	// -------------------------- Animation Part ---------------------------------------//
-	
+	/**
+	 * Initialize all three timer, and add different listener to them.
+	 */
 	private function initializeTimer() {
 		
 		animationTimer = new Timer(2000 + (35 / 30) * 1000, 0);
@@ -51,21 +57,41 @@ class LevelScene extends BaseScene
 		stopTimer.addEventListener(TimerEvent.TIMER, stopAnimation, false, 0, false);
 	}
 	
+	/**
+	 * The Whole Animation Loop.
+	 * @param	event is the timeEvent triggers when 1 loop finished.
+	 */
 	private function animationLoop(event: TimerEvent) {
 		playTimer.start();
 		stopTimer.start();
 	}
-
+	/**
+	 * Stop The Whole Animation Loop.
+	 * @param	event is the timeEvent triggers when 1 loop finished.
+	 */
+	private function stopAnimationLoop(event : MouseEvent) {
+		animationTimer.stop();
+		removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
+		countDownTimer.startCount();
+	}
+	/**
+	 * The animation start.
+	 * @param	event when the playTimer calls.
+	 */
 	private function playAnimation(event: TimerEvent) {
 		tempAnimationIndex = Std.int(Math.random() * 40); 
-		mushroomPool[tempAnimationIndex].mushClip.play();
+		mushroomPool[tempAnimationIndex].startJump();
 	}
 	
+	/**
+	 * The animation stop.
+	 * @param	event when the stopTimer calls.
+	 */
 	private function stopAnimation(event: TimerEvent) {
-		mushroomPool[tempAnimationIndex].mushClip.gotoAndStop(2);
+		mushroomPool[tempAnimationIndex].stopJump();
 	}
+	// =========================== Animation Part Ends ================================//
 	
-	// -------------------------- Animation Part Ends -----------------------------------//
 	
 	/**
 	 * Override the construct which will load the stage when the level start.
@@ -73,7 +99,8 @@ class LevelScene extends BaseScene
 	override private function construct () {
 		//Initialize the instances.
 		mushPlanter = new MushroomPlanter();
-		mushroomPool = new Array<Mushroom>();
+		mushroomPool = new Array<IMushroom>();
+
 		
 		//Load all the Object.
 		loadBackground("img/background.jpg");
@@ -82,13 +109,18 @@ class LevelScene extends BaseScene
 		
 		//Add the Sprite to stage.
 		resize ();
-		addChild (background);
+		addBasicObjects();
 		for (i in 0 ... 40) {
-			var tempMush : Mushroom = mushroomPool[i];
-			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 4);
-			addChild (tempMush.mushClip);
+			var tempMush : IMushroom = mushroomPool[i];
+			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 3.9);
+			addChild(tempMush.mushClip);
 			tempMush.mushClip.gotoAndStop(2);
 		}
+		#if flash 
+		addEventListener(MouseEvent.CLICK, stopAnimationLoop, false, 0 , false);
+		#else if android
+		
+		#end 
 		
 		//Start Animation on this stage
 		initializeTimer();
@@ -98,10 +130,26 @@ class LevelScene extends BaseScene
 		stage.addEventListener (Event.RESIZE, stage_onResize);
 	}
 	
+	override private function resizeButtons() : Void {
+		menuButton.resizeMovieClip(menuButton.objectClip, 527, 132, 9, 1.0 / 13.0, 17.0 / 18.0);
+		restartButton.resizeMovieClip(restartButton.objectClip, 231, 184, 22, 17.0 / 18.0, 17.0 / 18.0); 
+		countDownTimer.resizeMovieClip(countDownTimer.objectClip, 524, 174, 7, 1.0 / 10.0, 1.0 / 12.0);
+		countDownTimer.resizeText(countDownTimer.getTextContent());
+	}
+	
+	override private function addBasicObjects() : Void {
+		addChild(background);
+		addChild(menuButton.objectClip);
+		addChild(restartButton.objectClip);
+		addChild(countDownTimer.objectClip);
+		addChild(countDownTimer.displayText);
+	}
+	
 	override private function resize () {
+		resizeButtons();
 		resizeBackground();
 		for (i in 0 ... 40) {
-			var tempMush : Mushroom = mushroomPool[i];
+			var tempMush : IMushroom = mushroomPool[i];
 			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 4);
 		}
 	}

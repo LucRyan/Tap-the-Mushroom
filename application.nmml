@@ -18,9 +18,11 @@
 	<haxelib name="actuate" />
 	
 	<!-- assets -->
-	<icon path="assets/nme.svg" />
+	<icon path="assets/TapTheMushroom.png" />
 	<assets path="assets/img" rename="img" />
 	<assets path="assets/img/TapThemAll" rename="TapThemAll" />
+	<assets path="assets/sound" rename="sound" />
+	<assets path="assets/fonts" rename="fonts" />
 	<library path="assets/swf/TaptheMushroom.swf" rename="assets/swf/TaptheMushroom.swf" />
 	
 	<!-- DLLs -->

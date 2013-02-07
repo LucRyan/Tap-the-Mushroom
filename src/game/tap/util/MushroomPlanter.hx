@@ -1,4 +1,4 @@
-package game.tap;
+package game.tap.util;
 
 import format.display.MovieClip;
 import nme.display.Bitmap;
@@ -10,8 +10,8 @@ import nme.Assets;
 import nme.Lib;
 
 
-import game.tap.mushroom.MushroomFactory;
-import game.tap.mushroom.Mushroom;
+import game.tap.util.MushroomFactory;
+import game.tap.mushroom.IMushroom;
 
 /**
  * ...
@@ -21,13 +21,14 @@ import game.tap.mushroom.Mushroom;
 class MushroomPlanter
 {
 
-	var mushroomPool : Array<Mushroom>;
+	var mushroomPool : Array<IMushroom>;
 	var muFactory : MushroomFactory;
+	
 	
 	public function new() 
 	{
-		muFactory = new MushroomFactory();
-		mushroomPool = new Array<Mushroom>();
+		muFactory = MushroomFactory.MUSHROOM_FACTORY.getInstance();
+		mushroomPool = new Array<IMushroom>();
 	}
 
 
@@ -42,7 +43,7 @@ class MushroomPlanter
 	 * @param	rowOffset make sure half in the top and half in the bottom
 	 * @param	colOffset make sure half in the left and half in the right
 	 */
-	public function resizeMushroom (mushroom : Mushroom, index : Int, rows : Int, cols : Int, rowOffset : Float, colOffset : Float ) : Void {
+	public function resizeMushroom (mushroom : IMushroom, index : Int, rows : Int, cols : Int, rowOffset : Float, colOffset : Float ) : Void {
 		//Size
 		var scaleWidth = ((Lib.current.stage.stageWidth  - Lib.current.stage.stageWidth/10) / 8 - Lib.current.stage.stageWidth / 25 ); // margin is width/10, and the scale offset is width/40.
 		var scaleHeight = scaleWidth / 188 * 155; // Scale the height with Image ratio.
@@ -56,12 +57,11 @@ class MushroomPlanter
 	
 	/**
 	 * Function will create 40 random mushrooms.
-	 * 
 	 * @return the mushroomPool which contains 40 random mushrooms.
 	 */
-	public function plantMushrooms() : Array<Mushroom>{
+	public function plantMushrooms() : Array<IMushroom>{
 		for (i in 0 ... 40) {
-			var tempMush : Mushroom = muFactory.createMushroom(None, Std.int( Math.random() * 6));
+			var tempMush : IMushroom = muFactory.createMushroom(None, Std.int( Math.random() * 6));
 			resizeMushroom(tempMush, i, 5, 8, 2.2, 4);
 			mushroomPool.push(tempMush);
 		}

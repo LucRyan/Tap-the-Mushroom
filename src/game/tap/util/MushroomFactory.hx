@@ -1,5 +1,11 @@
-package game.tap.mushroom;
-
+package game.tap.util;
+import game.tap.mushroom.IMushroom;
+import game.tap.mushroom.BlueMushroom;
+import game.tap.mushroom.GreenMushroom;
+import game.tap.mushroom.RedMushroom;
+import game.tap.mushroom.PurpleMushroom;
+import game.tap.mushroom.GreenBlueMushroom;
+import game.tap.mushroom.YellowMushroom;
 
 /**
  * ...
@@ -16,7 +22,7 @@ enum MushroomColor {
 	None;
 }
  
-// Simple Factory Method
+// Simple DI Method
 
 class MushroomFactory
 {
@@ -26,7 +32,21 @@ class MushroomFactory
 		
 	}
 	
-	public function createMushroom(color : MushroomColor, index : Int ): Mushroom {
+	// Use for singleton.
+	public static var MUSHROOM_FACTORY = new MushroomFactory();
+	
+	/**
+	 * Singleton function
+	 * @return
+	 */
+	public function getInstance() : MushroomFactory{
+		if ( MUSHROOM_FACTORY == null) {
+			MUSHROOM_FACTORY = new MushroomFactory();
+		}
+		return MUSHROOM_FACTORY;
+	}
+	
+	public function createMushroom(color : MushroomColor, index : Int ): IMushroom {
 		if (color != None){
 			switch(color) {
 				case Red:

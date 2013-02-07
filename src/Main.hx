@@ -7,7 +7,7 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
-import game.tap.LevelScene;
+import game.tap.TapemALvl;
 
 
 
@@ -32,7 +32,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		Lib.current.addChild (new LevelScene());
+		Lib.current.addChild (new TapemALvl());
 	}
 	
 	static public function main() 

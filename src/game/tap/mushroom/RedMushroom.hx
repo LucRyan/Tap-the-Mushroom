@@ -3,25 +3,35 @@ import format.display.MovieClip;
 import nme.Assets;
 import nme.display.Sprite;
 import engine.objects.TouchableObject;
-
+import nme.events.MouseEvent;
 
 /**
  * ...
  * @author Yang Wang
  */
 
-class RedMushroom extends TouchableObject, implements Mushroom
+class RedMushroom extends Mushroom, implements IMushroom
 {
 
 	public function new() 
 	{
 		super();
-		loadMushroom("TaptheMushroom:tm.RedMushroomJump");
+		loadMovieClip("TaptheMushroom:tm.RedMushroomJump");
+		addListener();
+		setObjectClip(objectClip);
+		loadSound();
 	}
 	
 	public var mushClip : MovieClip;
+	public function setObjectClip( movieClip : MovieClip ) {
+		mushClip = movieClip;
+	}
 	
-	public function loadMushroom(mushroomPath : String) : Void {
-		mushClip = Assets.getMovieClip (mushroomPath);
+	public function startJump() {
+		objectClip.play();
+		jumpSound.play(0, 1);
+	}
+	public function stopJump() {
+		objectClip.gotoAndStop(2);
 	}
 }
