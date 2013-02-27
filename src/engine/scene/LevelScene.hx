@@ -25,6 +25,7 @@ class LevelScene extends BaseScene
 	var countDownTimer : CountDownTimer; // Count Down Timer's background.
 	var backgroundMusic : Sound;
 	
+	// TODO: THIS FUNCTION NEED REFACTOR!!!!
 	private function playBackgroundMusic() : Void {
 		backgroundMusic = Assets.getSound ("sound/LevelBackground.wav");
 		#if flash
@@ -40,6 +41,7 @@ class LevelScene extends BaseScene
 		countDownTimer = new CountDownTimer();
 	}
 	
+	// TODO: THIS FUNCTION NEED REFACTOR!!!!
 	private function resizeButtons() : Void {
 		menuButton.resizeMovieClip(menuButton.objectClip, 527, 132, 9, 1.0 / 13.0, 17.0 / 18.0);
 		restartButton.resizeMovieClip(restartButton.objectClip, 231, 184, 22, 17.0 / 18.0, 17.0 / 18.0); 

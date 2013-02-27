@@ -13,6 +13,7 @@ import nme.events.TimerEvent;
  * @author Yang Wang
  */
 
+//TODO: THIS CLASS NEED REFACTOR!!!
 class TextObject extends SceneObject
 {
 	public var displayText : TextField; 

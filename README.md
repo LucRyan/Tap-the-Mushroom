@@ -1,7 +1,7 @@
 Tap-the-Mushroom
 ================
 
-‚ÄúThe MUSHROOM is the elf of plants, at evening it is not; at morning in a truffled hut, It stops upon a spot I feel as if the GRASS were pleased, to have it intermit; The surreptitious scion, of SUMMER'S CIRCUMSPECT.‚Äù
+°∞The MUSHROOM is the elf of plants, at evening it is not; at morning in a truffled hut, It stops upon a spot I feel as if the GRASS were pleased, to have it intermit; The surreptitious scion, of SUMMER'S CIRCUMSPECT.°±
 
 Tap the Mushroom is a puzzle game which contains various kinds of stages and diverse mini-games filled with achievements to keep you coming back for more. Different level will require you to tap, to slide and to do other possible actions on the way of getting puzzles solved as well as kinds of achievements. In this game, it will test your reflection and memory in the funniest way. Easy to pick-up yet challenging to master.
 
@@ -17,7 +17,7 @@ Intuitive mechanics, you can easily complete a level by achieving necessary poin
 
 ##FIVE MINI-GAMES
 #### SHAKING IT DOWN!
-At first, there is a big mushroom in the center of the scene, and it‚Äôll be controlled by the accelerometer.
+At first, there is a big mushroom in the center of the scene, and it°Øll be controlled by the accelerometer.
 When it hits any side of the screen, the mushroom will shrink a little bit after all.
 The goal is to have the mushroom shrunk to disappear as quickly as the player can. So the player needs to hold his phone in one hand, and then shake it! However, the trick part of this level is having the mushroom got smaller and smaller with every hit, so the distance between the mushroom and the inside of the screen increases which makes it harder after accumulated hits.
 

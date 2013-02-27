@@ -43,8 +43,8 @@ class BaseScene extends Sprite
 	private function resizeBackground () : Void {
 		if(background != null){
 			//Size
-			background.height = stage.stageHeight;
-			background.width = stage.stageWidth;
+			background.height = stage.stageHeight + 20;
+			background.width = stage.stageWidth + 20;
 			background.alpha = 1.0;
 			//Position
 			background.x = (stage.stageWidth - background.width) / 2;

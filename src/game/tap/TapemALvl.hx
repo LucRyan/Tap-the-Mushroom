@@ -15,9 +15,11 @@ import nme.Lib;
 import com.eclecticdesignstudio.motion.Actuate;
 import nme.utils.Timer;
 
+import game.tap.mushroom.Mushroom;
+import game.tap.mushroom.MushroomController;
 import game.tap.util.MushroomFactory;
-import game.tap.mushroom.IMushroom;
 import game.tap.util.MushroomPlanter;
+import engine.utils.ScreenShaker;
 import engine.scene.BaseScene;
 
 
@@ -29,8 +31,10 @@ import engine.scene.BaseScene;
 class TapemALvl extends LevelScene
 {
 	
-	var mushroomPool : Array<IMushroom> ; // The 40 mushrooms container. 
+	var mushroomPool : Array<Mushroom> ; // The 40 mushrooms container. 
 	var mushPlanter : MushroomPlanter; // The planter instance.
+	var mushController : MushroomController; //
+	var shaker : ScreenShaker; //
 	var tempAnimationIndex : Int; // The index need by animation.
 	var animationTimer : Timer;  // The Timer controls whole animation loop.
 	var playTimer : Timer; // The Timer control each animation start.
@@ -72,6 +76,7 @@ class TapemALvl extends LevelScene
 	private function stopAnimationLoop(event : MouseEvent) {
 		animationTimer.stop();
 		removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
+		shaker.startAnimation(this);
 		countDownTimer.startCount();
 	}
 	/**
@@ -80,7 +85,7 @@ class TapemALvl extends LevelScene
 	 */
 	private function playAnimation(event: TimerEvent) {
 		tempAnimationIndex = Std.int(Math.random() * 40); 
-		mushroomPool[tempAnimationIndex].startJump();
+		mushController.startJump(mushroomPool[tempAnimationIndex]);
 	}
 	
 	/**
@@ -88,7 +93,7 @@ class TapemALvl extends LevelScene
 	 * @param	event when the stopTimer calls.
 	 */
 	private function stopAnimation(event: TimerEvent) {
-		mushroomPool[tempAnimationIndex].stopJump();
+		mushController.stopJump(mushroomPool[tempAnimationIndex]);
 	}
 	// =========================== Animation Part Ends ================================//
 	
@@ -99,8 +104,9 @@ class TapemALvl extends LevelScene
 	override private function construct () {
 		//Initialize the instances.
 		mushPlanter = new MushroomPlanter();
-		mushroomPool = new Array<IMushroom>();
-
+		mushroomPool = new Array<Mushroom>();
+		mushController = new MushroomController();
+		shaker = new ScreenShaker();
 		
 		//Load all the Object.
 		loadBackground("img/background.jpg");
@@ -111,15 +117,15 @@ class TapemALvl extends LevelScene
 		resize ();
 		addBasicObjects();
 		for (i in 0 ... 40) {
-			var tempMush : IMushroom = mushroomPool[i];
+			var tempMush : Mushroom = mushroomPool[i];
 			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 3.9);
-			addChild(tempMush.mushClip);
-			tempMush.mushClip.gotoAndStop(2);
+			addChild(tempMush.objectClip);
+			tempMush.objectClip.gotoAndStop(2);
 		}
 		#if flash 
 		addEventListener(MouseEvent.CLICK, stopAnimationLoop, false, 0 , false);
 		#else if android
-		
+		//TODO: ADD FUNCTIONS. OR THINK ABOUT HOW TO REFACTOR.
 		#end 
 		
 		//Start Animation on this stage
@@ -130,6 +136,7 @@ class TapemALvl extends LevelScene
 		stage.addEventListener (Event.RESIZE, stage_onResize);
 	}
 	
+	// TODO: THIS FUNCTION NEED REFACTOR!!!! THINK ABOUT OCP, TRY TO USE
 	override private function resizeButtons() : Void {
 		menuButton.resizeMovieClip(menuButton.objectClip, 527, 132, 9, 1.0 / 13.0, 17.0 / 18.0);
 		restartButton.resizeMovieClip(restartButton.objectClip, 231, 184, 22, 17.0 / 18.0, 17.0 / 18.0); 
@@ -137,6 +144,7 @@ class TapemALvl extends LevelScene
 		countDownTimer.resizeText(countDownTimer.getTextContent());
 	}
 	
+	// TODO: THIS FUNCTION NEED REFACTOR!!!!
 	override private function addBasicObjects() : Void {
 		addChild(background);
 		addChild(menuButton.objectClip);
@@ -149,7 +157,7 @@ class TapemALvl extends LevelScene
 		resizeButtons();
 		resizeBackground();
 		for (i in 0 ... 40) {
-			var tempMush : IMushroom = mushroomPool[i];
+			var tempMush : Mushroom = mushroomPool[i];
 			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 4);
 		}
 	}

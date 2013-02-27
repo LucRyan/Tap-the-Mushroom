@@ -33,6 +33,7 @@ class Main extends Sprite
 	{
 		// entry point
 		Lib.current.addChild (new TapemALvl());
+		
 	}
 	
 	static public function main() 
@@ -40,7 +41,7 @@ class Main extends Sprite
 		var stage = Lib.current.stage;
 		stage.scaleMode = nme.display.StageScaleMode.NO_SCALE;
 		stage.align = nme.display.StageAlign.TOP_LEFT;
-		
+	
 		Lib.current.addChild(new Main());
 	}
 	

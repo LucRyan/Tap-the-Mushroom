@@ -1,11 +1,6 @@
 package game.tap.util;
-import game.tap.mushroom.IMushroom;
-import game.tap.mushroom.BlueMushroom;
-import game.tap.mushroom.GreenMushroom;
-import game.tap.mushroom.RedMushroom;
-import game.tap.mushroom.PurpleMushroom;
-import game.tap.mushroom.GreenBlueMushroom;
-import game.tap.mushroom.YellowMushroom;
+import game.tap.mushroom.Mushroom;
+
 
 /**
  * ...
@@ -46,38 +41,38 @@ class MushroomFactory
 		return MUSHROOM_FACTORY;
 	}
 	
-	public function createMushroom(color : MushroomColor, index : Int ): IMushroom {
+	public function createMushroom(color : MushroomColor, index : Int ): Mushroom {
 		if (color != None){
 			switch(color) {
 				case Red:
-					return new RedMushroom();
+					return new Mushroom("TaptheMushroom:tm.RedMushroomJump");
 				case Green:
-					return new GreenMushroom();
+					return new Mushroom("TaptheMushroom:tm.GreenMushroomJump");
 				case Blue:
-					return new BlueMushroom();
+					return new Mushroom("TaptheMushroom:tm.BlueMushroomJump");
 				case GreenBlue:
-					return new GreenBlueMushroom();
+					return new Mushroom("TaptheMushroom:tm.GreenBlueMushroomJump");
 				case Yellow:
-					return new YellowMushroom();
+					return new Mushroom("TaptheMushroom:tm.YellowMushroomJump");
 				case Purple:
-					return new PurpleMushroom();
+					return new Mushroom("TaptheMushroom:tm.PurpleMushroomJump");
 				default:
 					return null;	
 			}
 		}else {
 			switch(index) {
 				case 0:
-					return new RedMushroom();
+					return new Mushroom("TaptheMushroom:tm.RedMushroomJump");
 				case 1:
-					return new GreenMushroom();
+					return new Mushroom("TaptheMushroom:tm.GreenMushroomJump");
 				case 2:
-					return new BlueMushroom();
+					return new Mushroom("TaptheMushroom:tm.BlueMushroomJump");
 				case 3:
-					return new GreenBlueMushroom();
+					return new Mushroom("TaptheMushroom:tm.GreenBlueMushroomJump");
 				case 4:
-					return new YellowMushroom();
+					return new Mushroom("TaptheMushroom:tm.YellowMushroomJump");
 				case 5:
-					return new PurpleMushroom();
+					return new Mushroom("TaptheMushroom:tm.PurpleMushroomJump");
 				default:
 					return null;	
 			}

@@ -30,7 +30,7 @@ class TouchableObject extends SceneObject
 		objectClip.addEventListener(MouseEvent.MOUSE_OVER, mouseOver, false, 0 , false);
 		objectClip.addEventListener(MouseEvent.MOUSE_OUT, mouseOut, false, 0 , false);
 		#else if android
-		
+		//TODO: ADD ANDROID TOUCH FUNCTION!!!
 		#end 	
 	}
 	
