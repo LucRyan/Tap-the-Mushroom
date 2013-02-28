@@ -28,7 +28,7 @@ class Mushroom extends TouchableObject
 		addListener();
 	}
 
-	override private function mouseClick(mouseEvent : MouseEvent) {
+	override public function mouseClick(mouseEvent : MouseEvent) {
 		objectClip.visible = false;
 		pokeSound.play(0, 1);
 	}

@@ -25,10 +25,9 @@ class CountDownTimer extends TextObject
 		super();
 		loadMovieClip("TaptheMushroom:tm.CountDownTimer");
 		objectClip.gotoAndStop(2);
-		initialize();
 	}
 	 
-	override private function initialize() {
+	override private function initialize(?font : String) {
 		 displayText = new TextField();
 		 customFont = Assets.getFont("fonts/SceneFonts.ttf");
 		 fontFmt = new TextFormat(customFont.fontName);
@@ -43,6 +42,14 @@ class CountDownTimer extends TextObject
 		 if(!countTimer.running){
 			countTimer.start();
 		 }
+	 }
+	 
+	 public function stopCount() {
+		 countTimer.stop();
+	 }
+	 
+	 public function setCompleteEvent(func : Dynamic) {
+		 countTimer.addEventListener(TimerEvent.TIMER_COMPLETE, func, false, 0, false);
 	 }
 	 
 	 public function getTextContent() : String {

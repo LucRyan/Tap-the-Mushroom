@@ -1,5 +1,6 @@
 package;
 
+import game.common.scene.LevelManager;
 import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.display.StageAlign;
@@ -32,7 +33,8 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		Lib.current.addChild (new TapemALvl());
+		//Lib.current.addChild (new TapemALvl());
+		Lib.current.addChild (LevelManager.LEVEL_MANAGER.getInstance());
 		
 	}
 	

@@ -1,6 +1,7 @@
 package game.common.button;
 import engine.objects.Button;
 import nme.events.MouseEvent;
+import game.common.scene.LevelManager;
 
 /**
  * ...
@@ -8,9 +9,7 @@ import nme.events.MouseEvent;
  */
 
 class RestartButton extends Button
-{
-
-
+{	
 	public function new() 
 	{
 		super();
@@ -22,8 +21,10 @@ class RestartButton extends Button
 	
 	
 	
-	override private function mouseClick(mouseEvent : MouseEvent) {
+	override public function mouseClick(mouseEvent : MouseEvent) {
 		clickSound.play(0, 1);
+		LevelManager.LEVEL_MANAGER.getInstance().startFadeOut();
+		
 	}
 	
 	override private function mouseDown(mouseEvent : MouseEvent) {objectClip.gotoAndStop(6);}

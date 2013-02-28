@@ -23,7 +23,7 @@ class MenuButton extends Button
 	
 	
 	
-	override private function mouseClick(mouseEvent : MouseEvent) {
+	override public function mouseClick(mouseEvent : MouseEvent) {
 		clickSound.play(0, 1);
 	}
 	

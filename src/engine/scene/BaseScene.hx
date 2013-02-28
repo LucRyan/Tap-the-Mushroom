@@ -27,6 +27,12 @@ class BaseScene extends Sprite
 		addEventListener (Event.ADDED_TO_STAGE, this_onAddedToStage);
 	}
 	
+	//Deconstructor
+	public function delete() : Void {}
+	
+	//Restart the Level.
+	public function  restart() : Void { }
+	
 	//This function will be called when the sprite Added to current Stage.
 	private function construct() : Void {}
 	

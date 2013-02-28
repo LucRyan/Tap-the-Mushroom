@@ -35,7 +35,7 @@ class TouchableObject extends SceneObject
 	}
 	
 	// Mouse functions for Touchable Object.
-	private function mouseClick(mouseEvent : MouseEvent) {}
+	public function mouseClick(mouseEvent : MouseEvent) {}
 	
 	private function mouseDoubleClick(mouseEvent : MouseEvent) {}
 	
