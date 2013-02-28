@@ -71,10 +71,10 @@ class ScoreBoard extends BaseScene
 		for (i in 0 ... 5 ) {
 			starsBest[i] = new Stars();
 			starsCurrent[i] = new Stars("fonts/ScoreFont.ttf");
-			addChild(starsCurrent[i].objectClip);
 			starsCurrent[i].addObjectToStage(this);
 			
 			//TODO: TEMP DISPLAY!!---------------------
+			addChild(starsBest[i].objectClip);
 			starsBest[i].objectClip.gotoAndStop(15);
 		}
 		
