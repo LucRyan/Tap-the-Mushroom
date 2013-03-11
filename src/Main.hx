@@ -34,7 +34,7 @@ class Main extends Sprite
 	{
 		// entry point
 		//Lib.current.addChild (new TapemALvl());
-		Lib.current.addChild (LevelManager.LEVEL_MANAGER.getInstance());
+		Lib.current.addChild (LevelManager.LEVEL_MANAGER.getInstance().getStage());
 		
 	}
 	

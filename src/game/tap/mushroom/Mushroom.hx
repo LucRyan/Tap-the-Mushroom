@@ -5,6 +5,7 @@ import format.display.MovieClip;
 import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.events.MouseEvent;
+import nme.events.TouchEvent;
 import nme.Assets;
 import nme.Lib;
 import nme.media.Sound;
@@ -29,6 +30,11 @@ class Mushroom extends TouchableObject
 	}
 
 	override public function mouseClick(mouseEvent : MouseEvent) {
+		objectClip.visible = false;
+		pokeSound.play(0, 1);
+	}
+	
+	override public function fingerTap(touchEvent : TouchEvent){
 		objectClip.visible = false;
 		pokeSound.play(0, 1);
 	}

@@ -1,6 +1,5 @@
 package game.tap;
 
-import game.common.scene.LevelScene;
 import format.display.MovieClip;
 import game.common.utils.ButtonAdder;
 
@@ -12,6 +11,7 @@ import nme.events.Event;
 import nme.Assets;
 import nme.events.TimerEvent;
 import nme.events.MouseEvent;
+import nme.events.TouchEvent;
 import nme.Lib;
 import com.eclecticdesignstudio.motion.Actuate;
 import nme.utils.Timer;
@@ -25,7 +25,7 @@ import engine.utils.ScreenShaker;
 import engine.scene.BaseScene;
 import engine.utils.SafeRemover;
 import engine.sound.SoundSystem;
-import engine.utils.DeltaTime;
+import engine.utils.MTimer;
 import game.common.scene.LevelManager;
 import game.common.utils.ScoreSystem;
 
@@ -34,7 +34,7 @@ import game.common.utils.ScoreSystem;
  * @author Yang Wang
  */
 
-class TapemALvl extends LevelScene
+class TapemALvl extends BaseScene
 {
 	
 	var mushroomPool : Array<Mushroom> ; // The 40 mushrooms container. 
@@ -42,7 +42,7 @@ class TapemALvl extends LevelScene
 	var mushController : MushroomController; //
 	var shaker : ScreenShaker; //
 	var buttonAdder : ButtonAdder;
-	
+	var countDownTimer : CountDownTimer; // Count Down Timer's background.
 	var tempAnimationIndex : Int; // The index need by animation.
 	var animationTimer : Timer;  // The Timer controls whole animation loop.
 	var playTimer : Timer; // The Timer control each animation start.
@@ -54,19 +54,15 @@ class TapemALvl extends LevelScene
 	}
 	
 	override public function delete() {
-		untyped __delete__(TapemALvl, "mushroomPool");
-		untyped __delete__(TapemALvl, "mushPlanter");
-		untyped __delete__(TapemALvl, "mushController");
-		untyped __delete__(TapemALvl, "shaker");
-		untyped __delete__(TapemALvl, "buttonAdder");
-		untyped __delete__(TapemALvl, "tempAnimationIndex");
-		untyped __delete__(TapemALvl, "animationTimer");
-		untyped __delete__(TapemALvl, "stopTimer");
 		animationTimer.stop();
 		countDownTimer.stopCount();
+		super.removeChild(background);
 		this.removeEventListener(Event.ADDED_TO_STAGE, this_onAddedToStage, false);
-		this.removeEventListener(Event.RESIZE, stage_onResize, false);
+		this.removeEventListener(Event.RESIZE, stage_onResize, true);
 		this.removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
+		this.animationTimer.removeEventListener(TimerEvent.TIMER, animationLoop, true);
+		this.playTimer.removeEventListener(TimerEvent.TIMER, playAnimation, true);
+		this.stopTimer.removeEventListener(TimerEvent.TIMER, stopAnimation, false);
 		SafeRemover.safeRemove(this);
 	}
 	
@@ -97,7 +93,7 @@ class TapemALvl extends LevelScene
 	 * Stop The Whole Animation Loop.
 	 * @param	event is the timeEvent triggers when 1 loop finished.
 	 */
-	private function stopAnimationLoop(event : MouseEvent) {
+	private function stopAnimationLoop(?event: Event) {
 		animationTimer.stop();
 		removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
 		countDownTimer.startCount();
@@ -132,7 +128,7 @@ class TapemALvl extends LevelScene
 		}
 		
 		shaker.startAnimation(this);
-		DeltaTime.DELTA_TIME.getInstance().wait(1000, goToScoreBoard);
+		MTimer.TIMER.getInstance().wait(1000, goToScoreBoard);
 	}
 	// =========================== Animation Part Ends ================================//
 	
@@ -162,7 +158,7 @@ class TapemALvl extends LevelScene
 		mushController = new MushroomController();
 		shaker = new ScreenShaker();
 		buttonAdder = new ButtonAdder();
-		DeltaTime.DELTA_TIME.getInstance().initializeTimer(update);
+		MTimer.TIMER.getInstance().initializeTimer(update);
 		
 		//Load all the Object.
 		loadBackground("img/background.jpg");
@@ -185,15 +181,16 @@ class TapemALvl extends LevelScene
 		}
 		#if flash 
 		addEventListener(MouseEvent.CLICK, stopAnimationLoop, false, 0 , false);
-		#else if android
+		#elseif android
 		//TODO: ADD FUNCTIONS. OR THINK ABOUT HOW TO REFACTOR.
+		addEventListener(TouchEvent.TOUCH_TAP, stopAnimationLoop, false, 0 , false);
 		#end 
 		
 		//Start Animation on this stage
 		initializeTimer();
 		animationTimer.start();
 		//Handle resize
-		stage.addEventListener (Event.RESIZE, stage_onResize);
+		stage.addEventListener(Event.RESIZE, stage_onResize);
 		//Handle Finished
 		countDownTimer.setCompleteEvent(finished);
 	}
@@ -205,7 +202,7 @@ class TapemALvl extends LevelScene
 	}
 	
 	// TODO: THIS FUNCTION NEED REFACTOR!!!!
-	override private function addBasicObjects() : Void {
+	private function addBasicObjects() : Void {
 		addChild(background);
 		addChild(countDownTimer.objectClip);
 		addChild(countDownTimer.displayText);

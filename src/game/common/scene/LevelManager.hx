@@ -5,7 +5,8 @@ import nme.events.Event;
 import game.tap.TapemALvl;
 import engine.sound.SoundSystem;
 import nme.events.TimerEvent;
-import engine.utils.DeltaTime;
+import engine.utils.MTimer;
+import nme.Lib;
 
 /**
  * ...
@@ -17,7 +18,7 @@ import engine.utils.DeltaTime;
 	 ScoreBoards;
  }
 
-class LevelManager extends Sprite
+class LevelManager
 {
 	// Use for singleton.
 	public static var LEVEL_MANAGER = new LevelManager();
@@ -35,23 +36,22 @@ class LevelManager extends Sprite
 	
 	private function new() 
 	{
-		super();
-		construct();
+
 	}
 	
 	var currentStage : BaseScene;
 	//
-    private function construct() {
+	public function getStage() : Sprite {
 		currentStage = new TapemALvl();
-		//currentStage = new ScoreBoard();
-		addChild(currentStage);
+		return currentStage;
 	}
 	
 	//TODO: Haven't figured out how to Safe Delete object and release memory.
 	public function startFadeOut() {
 		for(i in 0 ... 5)
-		DeltaTime.DELTA_TIME.getInstance().wait(40 * i , fadeOut);
-		DeltaTime.DELTA_TIME.getInstance().wait(200, restart);
+		MTimer.TIMER.getInstance().wait(40 * i , fadeOut);
+		//Restart
+		MTimer.TIMER.getInstance().wait(200, restart);
 	}
 	
 	private function fadeOut(event: TimerEvent) {
@@ -59,14 +59,18 @@ class LevelManager extends Sprite
 	}
 	
 	private function restart(?event : TimerEvent) {
+		Lib.current.removeChild(currentStage);
 		currentStage.delete();
+		currentStage = null;
 		//TODO: CHANGE LEVEL
 		currentStage = new TapemALvl();
-		addChild(currentStage);
+		Lib.current.addChild(currentStage);
 	}
 	
 	public function changePages(levelId : Levels) {
+		Lib.current.removeChild(currentStage);
 		currentStage.delete();
+		currentStage = null;
 		switch(levelId) {
 			case TapEmALL:
 				currentStage = new TapemALvl();
@@ -74,7 +78,7 @@ class LevelManager extends Sprite
 				currentStage = new ScoreBoard();
 		}
 		
-		addChild(currentStage);
+		Lib.current.addChild(currentStage);
 	}
 	
 	

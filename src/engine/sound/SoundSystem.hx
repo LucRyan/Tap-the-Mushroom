@@ -40,7 +40,7 @@ class SoundSystem
 		backgroundMusic = Assets.getSound ((soundPath == null)? "sound/LevelBackground.wav" : soundPath);
 		#if flash
 		backgroundMusicChannel = backgroundMusic.play(0, 1000); // Flash API doesn't support -1 as infinite.
-		#else if android
+		#elseif android
 		backgroundMusicChannel = backgroundMusic.play(0, -1);
 		#end
 	}

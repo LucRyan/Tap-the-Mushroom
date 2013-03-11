@@ -7,6 +7,7 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
+import engine.utils.SafeRemover;
 
 
 /**
@@ -28,7 +29,9 @@ class BaseScene extends Sprite
 	}
 	
 	//Deconstructor
-	public function delete() : Void {}
+	public function delete() : Void {
+		SafeRemover.safeRemove(this);
+	}
 	
 	//Restart the Level.
 	public function  restart() : Void { }
@@ -47,14 +50,14 @@ class BaseScene extends Sprite
 	 * This function will resize the background when the screen been resized.
 	 */
 	private function resizeBackground () : Void {
-		if(background != null){
+		if(this.background != null){
 			//Size
-			background.height = stage.stageHeight + 20;
-			background.width = stage.stageWidth + 20;
-			background.alpha = 1.0;
+			this.background.height = stage.stageHeight + 20;
+			this.background.width = stage.stageWidth + 20;
+			this.background.alpha = 1.0;
 			//Position
-			background.x = (stage.stageWidth - background.width) / 2;
-			background.y = (stage.stageHeight - background.height) / 2;
+			this.background.x = (stage.stageWidth - background.width) / 2;
+			this.background.y = (stage.stageHeight - background.height) / 2;
 		}else {
 			throw("No Background Image Loaded.");
 		}

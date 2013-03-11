@@ -7,7 +7,7 @@ import engine.objects.SceneObject;
 import engine.utils.SafeRemover;
 import game.common.displayItem.Stars;
 import game.common.utils.ScoreSystem;
-import engine.utils.DeltaTime;
+import engine.utils.MTimer;
 
 /**
  * ...
@@ -115,39 +115,39 @@ class ScoreBoard extends BaseScene
 			
 		}else if ( score >= lowerBound && score < lowerBound + difference) {
 			starsCurrent[0].playAnimation();
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
 		}else if ( score >= lowerBound + difference && score < lowerBound + difference * 2) {
 			starsCurrent[0].playAnimation();
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 2, starsCurrent[1].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 2, starsCurrent[1].stopAnimation);
 		}else if ( score >= lowerBound + difference * 2 && score < lowerBound + difference * 3) {
 			starsCurrent[0].playAnimation();
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 2, starsCurrent[1].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 2, starsCurrent[2].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 3, starsCurrent[2].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 2, starsCurrent[1].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 2, starsCurrent[2].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 3, starsCurrent[2].stopAnimation);
 		}else if ( score >= lowerBound + difference * 2 && score < lowerBound + difference * 4) {
 			starsCurrent[0].playAnimation();
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 2, starsCurrent[1].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 2, starsCurrent[2].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 3, starsCurrent[2].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 3, starsCurrent[3].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 4, starsCurrent[3].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 2, starsCurrent[1].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 2, starsCurrent[2].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 3, starsCurrent[2].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 3, starsCurrent[3].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 4, starsCurrent[3].stopAnimation);
 		}else {
 			starsCurrent[0].playAnimation();
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 2, starsCurrent[1].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 2, starsCurrent[2].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 3, starsCurrent[2].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 3, starsCurrent[3].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 4, starsCurrent[3].stopAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16/30 * 1000 * 4, starsCurrent[4].playAnimation);
-			DeltaTime.DELTA_TIME.getInstance().wait(16 / 30 * 1000 * 5, starsCurrent[4].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[0].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000, starsCurrent[1].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 2, starsCurrent[1].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 2, starsCurrent[2].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 3, starsCurrent[2].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 3, starsCurrent[3].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 4, starsCurrent[3].stopAnimation);
+			MTimer.TIMER.getInstance().wait(16/30 * 1000 * 4, starsCurrent[4].playAnimation);
+			MTimer.TIMER.getInstance().wait(16 / 30 * 1000 * 5, starsCurrent[4].stopAnimation);
 		}
 	}
 }

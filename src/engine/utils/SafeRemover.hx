@@ -6,8 +6,7 @@ package engine.utils;
  */
 
 class SafeRemover 
-{
-
+{	
 	public function new() 
 	{
 		
