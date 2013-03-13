@@ -49,7 +49,7 @@ class Stars extends TextObject
 	 }
 	 
 	 public function stopAnimation(?event : TimerEvent) {
-		 objectClip.stop();
+		 objectClip.gotoAndStop(15);
 	 }
 	
 	

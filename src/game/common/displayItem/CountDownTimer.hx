@@ -32,7 +32,7 @@ class CountDownTimer extends TextObject
 		 customFont = Assets.getFont("fonts/SceneFonts.ttf");
 		 fontFmt = new TextFormat(customFont.fontName);
 		 timeCount = totalTime;
-		 countTimer = new Timer(10, Std.int(totalTime/10));
+		 countTimer = new Timer(20, Std.int(totalTime/20)); //Less than 20 millionseconds are not allowed.
 		 countTimer.addEventListener(TimerEvent.TIMER, updateTimer, false, 0, false);
 		 textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 4);
 	 }
@@ -57,7 +57,7 @@ class CountDownTimer extends TextObject
 	 }
 	 
 	 private function updateTimer(event: TimerEvent) : Void {
-		 timeCount -= 10;
+		 timeCount -= 20;
 		 textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 4);
 		 displayText.text = textContent;
 	 }

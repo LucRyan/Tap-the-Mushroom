@@ -2,6 +2,7 @@ package game.tap;
 
 import format.display.MovieClip;
 import game.common.utils.ButtonAdder;
+import haxe.Log;
 
 import nme.display.Bitmap;
 import nme.display.Sprite;
@@ -36,7 +37,7 @@ import game.common.utils.ScoreSystem;
 
 class TapemALvl extends BaseScene
 {
-	
+	//-----------------------------------     Variables     ---------------------------------------
 	var mushroomPool : Array<Mushroom> ; // The 40 mushrooms container. 
 	var mushPlanter : MushroomPlanter; // The planter instance.
 	var mushController : MushroomController; //
@@ -44,75 +45,61 @@ class TapemALvl extends BaseScene
 	var buttonAdder : ButtonAdder;
 	var countDownTimer : CountDownTimer; // Count Down Timer's background.
 	var tempAnimationIndex : Int; // The index need by animation.
-	var animationTimer : Timer;  // The Timer controls whole animation loop.
-	var playTimer : Timer; // The Timer control each animation start.
-	var stopTimer : Timer; /// The Timer controls when the animation should stop.
 	
+	//--------- Animation Variables ----------//
+	var lastAnimationStamp  : Float; // AnimationStamp
+	inline static var SJUMP_DURATION : Float = (35 / 30) * 1000;
+	inline static var WHOLE_DURATION : Float = 2000 + (35 / 30) * 1000;
+	var firstAnimationFlag : Bool = true;
+	var updateAnimationFlag : Bool = true;
+	
+	//----------------------------------------------------------------------------------------------
+
+	
+	//---------------------------------      Functions     -----------------------------------------
 	// Constructor 
 	public function new () {	
 		super();
+		//Add the enter frame listenr.
+		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
 	}
 	
 	override public function delete() {
-		animationTimer.stop();
 		countDownTimer.stopCount();
 		super.removeChild(background);
 		this.removeEventListener(Event.ADDED_TO_STAGE, this_onAddedToStage, false);
 		this.removeEventListener(Event.RESIZE, stage_onResize, true);
 		this.removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
-		this.animationTimer.removeEventListener(TimerEvent.TIMER, animationLoop, true);
-		this.playTimer.removeEventListener(TimerEvent.TIMER, playAnimation, true);
-		this.stopTimer.removeEventListener(TimerEvent.TIMER, stopAnimation, false);
+		this.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, false);
 		SafeRemover.safeRemove(this);
 	}
 	
 	// -------------------------- Animation Part ---------------------------------------//
 	/**
-	 * Initialize all three timer, and add different listener to them.
-	 */
-	private function initializeTimer() {
-		animationTimer = new Timer(2000 + (35 / 30) * 1000, 0);
-		animationTimer.addEventListener(TimerEvent.TIMER, animationLoop, false, 0, false);
-		
-		playTimer = new Timer(1000, 1);
-		playTimer.addEventListener(TimerEvent.TIMER, playAnimation, false, 0, false);
-		
-		stopTimer = new Timer((35/30)*1000 + 1000, 1);
-		stopTimer.addEventListener(TimerEvent.TIMER, stopAnimation, false, 0, false);
-	}
-	
-	/**
-	 * The Whole Animation Loop.
-	 * @param	event is the timeEvent triggers when 1 loop finished.
-	 */
-	private function animationLoop(event: TimerEvent) {
-		playTimer.start();
-		stopTimer.start();
-	}
-	/**
 	 * Stop The Whole Animation Loop.
 	 * @param	event is the timeEvent triggers when 1 loop finished.
 	 */
 	private function stopAnimationLoop(?event: Event) {
-		animationTimer.stop();
+		updateAnimationFlag = false;
 		removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
 		countDownTimer.startCount();
 	}
-	/**
-	 * The animation start.
-	 * @param	event when the playTimer calls.
-	 */
-	private function playAnimation(event: TimerEvent) {
-		tempAnimationIndex = Std.int(Math.random() * 40); 
-		mushController.startJump(mushroomPool[tempAnimationIndex]);
-	}
 	
 	/**
-	 * The animation stop.
-	 * @param	event when the stopTimer calls.
-	 */
-	private function stopAnimation(event: TimerEvent) {
-		mushController.stopJump(mushroomPool[tempAnimationIndex]);
+	 * Update the animation, mushroom jumps.
+	 */	
+	private function updateAnimation() {
+		if((WHOLE_DURATION <= Lib.getTimer() - lastAnimationStamp) || firstAnimationFlag  )
+		{
+			firstAnimationFlag = false;
+			//Start Mushroom jump.
+			tempAnimationIndex = Std.int(Math.random() * 40); 
+			lastAnimationStamp = Lib.getTimer();
+			mushController.startJump(mushroomPool[tempAnimationIndex]);
+			//Stop Mushroom jump
+		}
+		if (SJUMP_DURATION <= Lib.getTimer() - lastAnimationStamp)
+			mushController.stopJump(mushroomPool[tempAnimationIndex]);	
 	}
 	
 	/**
@@ -133,10 +120,11 @@ class TapemALvl extends BaseScene
 	// =========================== Animation Part Ends ================================//
 	
 	/**
-	 * Tic function
+	 * Update function
 	 */
-	private function update(event: TimerEvent) {
-		
+	override private function update() : Void {
+		if(updateAnimationFlag)
+			updateAnimation();
 	}
 	
 	/**
@@ -158,7 +146,6 @@ class TapemALvl extends BaseScene
 		mushController = new MushroomController();
 		shaker = new ScreenShaker();
 		buttonAdder = new ButtonAdder();
-		MTimer.TIMER.getInstance().initializeTimer(update);
 		
 		//Load all the Object.
 		loadBackground("img/background.jpg");
@@ -186,9 +173,6 @@ class TapemALvl extends BaseScene
 		addEventListener(TouchEvent.TOUCH_TAP, stopAnimationLoop, false, 0 , false);
 		#end 
 		
-		//Start Animation on this stage
-		initializeTimer();
-		animationTimer.start();
 		//Handle resize
 		stage.addEventListener(Event.RESIZE, stage_onResize);
 		//Handle Finished

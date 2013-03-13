@@ -1,5 +1,6 @@
 package engine.scene;
 
+import engine.utils.ITickable;
 import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.display.StageAlign;
@@ -33,8 +34,11 @@ class BaseScene extends Sprite
 		SafeRemover.safeRemove(this);
 	}
 	
+	//Update function
+	private function update() : Void {}
+	
 	//Restart the Level.
-	public function  restart() : Void { }
+	public function  restart() : Void {}
 	
 	//This function will be called when the sprite Added to current Stage.
 	private function construct() : Void {}
@@ -50,6 +54,7 @@ class BaseScene extends Sprite
 	 * This function will resize the background when the screen been resized.
 	 */
 	private function resizeBackground () : Void {
+		//BUG: After restart a level, this function will get wrong in Tap 'em all level.
 		if(this.background != null){
 			//Size
 			this.background.height = stage.stageHeight + 20;
@@ -84,6 +89,11 @@ class BaseScene extends Sprite
 	//On added to stage
 	private function this_onAddedToStage (event:Event):Void {
 		construct ();
+	}
+	
+	//On enter to every frame
+	private function this_onEnterFrame (event:Event):Void {
+		update();
 	}
 	
 	
