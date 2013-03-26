@@ -33,8 +33,8 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		//Lib.current.addChild (new TapemALvl());
-		Lib.current.addChild (LevelManager.LEVEL_MANAGER.getInstance().getStage());
+		LevelManager.LEVEL_MANAGER.getInstance().changePages(LevelCon);
+		LevelManager.LEVEL_MANAGER.getInstance().isFirstTime = false;
 		
 	}
 	

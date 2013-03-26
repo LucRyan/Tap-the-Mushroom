@@ -1,4 +1,5 @@
 package game.common.scene;
+import game.level.LevelContainer;
 import nme.display.Sprite;
 import engine.scene.BaseScene;
 import nme.events.Event;
@@ -13,7 +14,8 @@ import nme.Lib;
  * @author Yang Wang
  */
 
- enum Levels {
+ enum LevelsEM {
+	 LevelCon;
 	 TapEmALL;
 	 ScoreBoards;
  }
@@ -22,7 +24,7 @@ class LevelManager
 {
 	// Use for singleton.
 	public static var LEVEL_MANAGER = new LevelManager();
-	
+
 	/**
 	 * Singleton function
 	 * @return
@@ -40,16 +42,36 @@ class LevelManager
 	}
 	
 	var currentStage : BaseScene;
-	//
-	public function getStage() : Sprite {
-		currentStage = new TapemALvl();
-		return currentStage;
+	var currentStageName : LevelsEM;
+	public var isFirstTime : Bool = true;
+
+	/**
+	 * This function will change levels based on the LevelId.
+	 * @param	levelId
+	 */
+	public function changePages(levelId : LevelsEM) : Void {
+		if (isFirstTime == false) {
+			Lib.current.removeChild(currentStage);
+			currentStage.delete();
+			currentStage = null;
+		}
+		switch(levelId) {
+			case LevelCon:
+				currentStage = new LevelContainer();
+				currentStageName = LevelCon;
+			case TapEmALL:
+				currentStage = new TapemALvl();
+				currentStageName = TapEmALL;
+			case ScoreBoards:
+				currentStage = new ScoreBoard();
+		}
+		Lib.current.addChild(currentStage);
 	}
 	
-	//TODO: Haven't figured out how to Safe Delete object and release memory.
+	//-----------------------------Animation Part-------------------------------//
 	public function startFadeOut() {
 		for(i in 0 ... 5)
-		MTimer.TIMER.getInstance().wait(40 * i , fadeOut);
+			MTimer.TIMER.getInstance().wait(40 * i , fadeOut);
 		//Restart
 		MTimer.TIMER.getInstance().wait(200, restart);
 	}
@@ -59,29 +81,7 @@ class LevelManager
 	}
 	
 	private function restart(?event : TimerEvent) {
-		Lib.current.removeChild(currentStage);
-		currentStage.delete();
-		currentStage = null;
-		//TODO: CHANGE LEVEL
-		currentStage = new TapemALvl();
-		Lib.current.addChild(currentStage);
+		changePages(currentStageName);
 	}
-	
-	public function changePages(levelId : Levels) {
-		Lib.current.removeChild(currentStage);
-		currentStage.delete();
-		currentStage = null;
-		switch(levelId) {
-			case TapEmALL:
-				currentStage = new TapemALvl();
-			case ScoreBoards:
-				currentStage = new ScoreBoard();
-		}
-		
-		Lib.current.addChild(currentStage);
-	}
-	
-	
-	
 	
 }
