@@ -11,17 +11,10 @@ import nme.Assets;
 
 class Button extends TouchableObject
 {
-
-	var clickSound : Sound;
 	
 	public function new() 
 	{
 		super();
 	}
-	
-	private function loadSound(soundPath : String) : Void {
-		clickSound =  Assets.getSound (soundPath);
-	}
-	
 	
 }

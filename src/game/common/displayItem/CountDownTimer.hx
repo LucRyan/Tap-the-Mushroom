@@ -1,5 +1,6 @@
 package game.common.displayItem;
 import engine.objects.TextObject;
+import engine.utils.ITickable;
 import nme.text.Font;
 import nme.text.TextField;
 import nme.text.TextFormat;
@@ -13,18 +14,24 @@ import nme.events.TimerEvent;
  * @author Yang Wang
  */
 
-class CountDownTimer extends TextObject
+class CountDownTimer extends TextObject, implements ITickable
 {
 	var timeCount : Float;
-	var totalTime = 5000;
+	inline static var totalTime = 5000;
 	var countTimer : Timer;
 	var textContent : String;
+	public var runningFlag : Bool = false;
 	
 	public function new() 
 	{
 		super();
 		loadMovieClip("TaptheMushroom:tm.CountDownTimer");
 		objectClip.gotoAndStop(2);
+	}
+	
+	public function tick() 
+	{
+		updateTimer();
 	}
 	 
 	override private function initialize(?font : String) {
@@ -56,7 +63,7 @@ class CountDownTimer extends TextObject
 		 return textContent;
 	 }
 	 
-	 private function updateTimer(event: TimerEvent) : Void {
+	 private function updateTimer(?event: TimerEvent) : Void {
 		 timeCount -= 20;
 		 textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 4);
 		 displayText.text = textContent;

@@ -9,6 +9,7 @@ import nme.events.TouchEvent;
 import nme.Assets;
 import nme.Lib;
 import nme.media.Sound;
+import engine.sound.SoundSystem;
 
 /**
  * ...
@@ -17,30 +18,16 @@ import nme.media.Sound;
 
 class Mushroom extends TouchableObject
 {
-	//TODO: Should I put sound here?? I think it is the time to Build SOUND SYSTEM!!!!
-	public var jumpSound : Sound;
-	var pokeSound : Sound;
 	
-	public function new(?movieClipPath : String, ?jumpSoundPath : String, ?pokeSoundPath : String) 
+	public function new(?movieClipPath : String) 
 	{
 		super();
 		loadMovieClip((movieClipPath == null) ? "TaptheMushroom:tm.RedMushroomJump" : movieClipPath );
-		loadSound(jumpSoundPath, pokeSoundPath);
 		addListener();
 	}
 
 	override public function mouseClick(mouseEvent : MouseEvent) {
 		objectClip.visible = false;
-		pokeSound.play(0, 1);
+		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("PokeMushroom", 1);
 	}
-	
-	override public function fingerTap(touchEvent : TouchEvent){
-		objectClip.visible = false;
-		pokeSound.play(0, 1);
-	}
-	
-	private function loadSound(?jumpSoundPath : String, ?pokeSoundPath : String){
-		jumpSound = Assets.getSound ((jumpSoundPath == null) ? "sound/MushroomJump.mp3" : jumpSoundPath);
-		pokeSound = Assets.getSound ((pokeSoundPath == null) ? "sound/PokeMushroom.mp3" : pokeSoundPath);
-	}	
 }

@@ -2,6 +2,7 @@ package engine.sound;
 import nme.media.Sound;
 import nme.Assets;
 import nme.media.SoundChannel;
+import nme.media.SoundTransform;
 
 /**
  * ...
@@ -12,12 +13,16 @@ class SoundSystem
 {
 	var backgroundMusic : Sound;
 	var backgroundMusicChannel : SoundChannel;
-	var soundEffect : Sound;
-	var soundEffectChannel : SoundChannel;
+	var soundFx : Sound;
+	var soundFxChannel : SoundChannel;
+	var soundFxTransform : SoundTransform;
+	var soundPool : Hash<Sound>;
+	var soundChannelPool : Hash<SoundChannel>;
+	var initialFlag : Bool = false;
 	
 	
 	// Use for singleton.
-	public static var SOUND_SYSTEM = new SoundSystem();
+	public static var SOUND_SYSTEM : SoundSystem = new SoundSystem();
 	
 	/**
 	 * Singleton function
@@ -31,10 +36,42 @@ class SoundSystem
 	}
 	
 	
-	public function new() 
+	private function new() 
 	{
 		
 	}
+	
+	//Add all sound need to play
+	private function initialSoundSystem() : Void {
+		soundPool = new Hash<Sound>();
+		soundChannelPool = new Hash<SoundChannel>();
+		loadSound("LevelBackground", "wav");
+		loadSound("MenuButton", "mp3");
+		loadSound("MushroomJump", "mp3");
+		loadSound("PokeMushroom", "wav");
+		loadSound("RestartButton", "wav");
+	}
+	
+	private function loadSound( name : String, format : String) : Void {
+		soundFx = Assets.getSound ("sound/" + name + "." + format);
+		soundPool.set(name, soundFx);
+	}
+	
+	public function playSoundFx(key : String, ?loop : Int = 1) : Void {
+		if (initialFlag == false) {
+			initialSoundSystem();
+			initialFlag = true;
+		}
+		if (soundPool.get(key).isBuffering && soundChannelPool.exists(key))
+			soundChannelPool.get(key).stop();
+		soundFxChannel = soundPool.get(key).play(0, loop);
+		soundChannelPool.set(key, soundFxChannel);
+	}
+	
+	public function stopSoundFx(key : String) : Void {
+		if (soundChannelPool.exists(key)) soundChannelPool.get(key).stop();
+	}
+
 	
 	public function playBackgroundMusic(?soundPath : String) : Void {
 		backgroundMusic = Assets.getSound ((soundPath == null)? "sound/LevelBackground.wav" : soundPath);
@@ -48,13 +85,5 @@ class SoundSystem
 	public function stopBackgroundMusic() : Void {
 		backgroundMusicChannel.stop();
 	}
-	
-	public function playSoundEffect(?soundPath : String) : Void {
-		soundEffect = Assets.getSound ((soundPath == null)? "sound/MenuButton.mp3" : soundPath);
-		soundEffectChannel = soundEffect.play(0, 1);
-	}
-	
-	
-	
-	
+
 }

@@ -1,6 +1,7 @@
 package game.tap.mushroom;
 import game.tap.mushroom.Mushroom;
 import format.display.MovieClip;
+import engine.sound.SoundSystem;
 
 /**
  * Control the Msuhrooms 
@@ -15,7 +16,7 @@ class MushroomController
 	
 	public function startJump(mushroom : Mushroom) : Void {
 		mushroom.objectClip.play();
-		mushroom.jumpSound.play(0, 1);
+		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("MushroomJump", 1);
 	}
 	
 	public function stopJump(mushroom : Mushroom) : Void {

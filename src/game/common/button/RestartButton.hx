@@ -2,6 +2,7 @@ package game.common.button;
 import engine.objects.Button;
 import nme.events.MouseEvent;
 import game.common.scene.LevelManager;
+import engine.sound.SoundSystem;
 
 /**
  * ...
@@ -16,13 +17,12 @@ class RestartButton extends Button
 		loadMovieClip("TaptheMushroom:tm.RestartButton");
 		objectClip.gotoAndStop(2);
 		addListener();
-		loadSound("sound/RestartButton.wav");
 	}
 	
 	
 	
 	override public function mouseClick(mouseEvent : MouseEvent) {
-		clickSound.play(0, 1);
+		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("RestartButton", 1);
 		LevelManager.LEVEL_MANAGER.getInstance().startFadeOut();
 		
 	}

@@ -69,8 +69,8 @@ class TapemALvl extends BaseScene
 		super.removeChild(background);
 		this.removeEventListener(Event.ADDED_TO_STAGE, this_onAddedToStage, false);
 		this.removeEventListener(Event.RESIZE, stage_onResize, true);
-		this.removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
 		this.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, false);
+		this.removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
 		SafeRemover.safeRemove(this);
 	}
 	
@@ -149,11 +149,6 @@ class TapemALvl extends BaseScene
 		
 		//Load all the Object.
 		loadBackground("img/background.jpg");
-		restart();
-	}
-	
-	//
-	override public function restart() : Void {
 		mushroomPool = mushPlanter.plantMushrooms();
 		
 		//Add the Sprite to stage.
@@ -166,12 +161,7 @@ class TapemALvl extends BaseScene
 			addChild(tempMush.objectClip);
 			tempMush.objectClip.gotoAndStop(2);
 		}
-		#if flash 
 		addEventListener(MouseEvent.CLICK, stopAnimationLoop, false, 0 , false);
-		#elseif android
-		//TODO: ADD FUNCTIONS. OR THINK ABOUT HOW TO REFACTOR.
-		addEventListener(TouchEvent.TOUCH_TAP, stopAnimationLoop, false, 0 , false);
-		#end 
 		
 		//Handle resize
 		stage.addEventListener(Event.RESIZE, stage_onResize);

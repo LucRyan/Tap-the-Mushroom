@@ -3,6 +3,7 @@ import engine.objects.Button;
 import nme.Assets;
 import nme.Lib;
 import nme.events.MouseEvent;
+import engine.sound.SoundSystem;
 
 /**
  * ...
@@ -18,13 +19,12 @@ class MenuButton extends Button
 		loadMovieClip("TaptheMushroom:tm.MenuButton");
 		objectClip.gotoAndStop(2);
 		addListener();
-		loadSound("sound/MenuButton.mp3");
 	}
 	
 	
 	
 	override public function mouseClick(mouseEvent : MouseEvent) {
-		clickSound.play(0, 1);
+		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("MenuButton", 1);
 	}
 	
 	override private function mouseDown(mouseEvent : MouseEvent) {objectClip.gotoAndStop(6);}

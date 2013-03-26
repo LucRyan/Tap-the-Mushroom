@@ -4,14 +4,14 @@
 	<haxedef name="fdb" if="flash"></haxedef>
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="Tap the Mushroom" package="TaptheMushroom" version="1.0.0" company="Yang Wang" />
+	<meta title="Tap the Mushroom" package="com.soybean.TaptheMushroom" version="1.0.0" company="Yang Wang" />
 	
 	<!-- output -->
 	<app main="Main" file="TaptheMushroom" path="bin" />
 	
 	<window background="#000000" fps="30" />
-	<window width="800" height="480" unless="mobile" />
-	<window orientation="landscape" vsync="true" antialiasing="0" if="cpp" />
+	<window width="800" height="480"/>
+	<window orientation="landscape" resizable="true" vsync="true" antialiasing="0" />
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />
