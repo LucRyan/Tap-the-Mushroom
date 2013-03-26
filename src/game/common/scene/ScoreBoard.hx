@@ -102,8 +102,13 @@ class ScoreBoard extends BaseScene
 		buttonAdder.resizeButtons();
 		resizeBackground();
 		for (i in 0 ... 5 ) {
-			starsBest[i].resizeMovieClip(starsBest[i].objectClip, 100, 100, 40, ( i / 3 + 3.8 )/ 10.0, 6 / 12.0);
-			starsCurrent[i].resizeMovieClip(starsCurrent[i].objectClip, 100, 100, 24, ( i / 1.8 + 4.5 ) / 10.0, 9.2 / 12.0);
+			#if flash
+				starsBest[i].resizeMovieClip(starsBest[i].objectClip, 100, 100, 40, ( i / 3 + 3.8 )/ 10.0, 6 / 12.0);
+				starsCurrent[i].resizeMovieClip(starsCurrent[i].objectClip, 100, 100, 24, ( i / 1.8 + 4.5 ) / 10.0, 9.2 / 12.0);
+			#elseif android
+				starsBest[i].resizeMovieClip(starsBest[i].objectClip, 100, 100, 40, ( i / 3 + 4.0 ) / 10.0, 6 / 12.0);
+				starsCurrent[i].resizeMovieClip(starsCurrent[i].objectClip, 100, 100, 24, ( i / 1.8 + 4.7 ) / 10.0, 9.2 / 12.0);
+			#end
 			//TODO: JUST THIS ONE.
 			starsCurrent[i].resizeText( Std.string(15 + (i * 5)), 0xCC9900);
 		}

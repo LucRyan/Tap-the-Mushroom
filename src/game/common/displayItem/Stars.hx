@@ -29,11 +29,18 @@ class Stars extends TextObject
 	  * @param	text
 	  */
 	override public function resizeText(?text : String, ?color : Int) {
-		 displayText.x = objectClip.x - objectClip.width / 2 ;
-		 displayText.y = objectClip.y + objectClip.height / 1.5 ;
-		 displayText.width = objectClip.width;
-		 displayText.height = objectClip.height;
-		 
+		#if flash
+			 displayText.x = objectClip.x - objectClip.width / 2 ;
+			 displayText.y = objectClip.y + objectClip.height / 1.5 ;
+			 displayText.width = objectClip.width;
+			 displayText.height = objectClip.height;
+		#elseif android
+			 displayText.x = objectClip.x - objectClip.width * 1.5 ;
+			 displayText.y = objectClip.y + objectClip.height / 1.8 ;
+			 displayText.width = objectClip.width;
+			 displayText.height = objectClip.height;
+		#end
+		
 		 fontFmt.size = cast (Math.floor(objectClip.height * 3 / 10), Int);
 		 fontFmt.color = (color == null) ? 0x000000 : color; 
 		 displayText.embedFonts = true;

@@ -43,10 +43,17 @@ class TextObject extends SceneObject
 	  * @param	text
 	  */
 	public function resizeText(?text : String, ?color : Int) {
-		 displayText.x = objectClip.x - objectClip.width / 2 ;
-		 displayText.y = objectClip.y - objectClip.height / 3 ;
-		 displayText.width = objectClip.width;
-		 displayText.height = objectClip.height;
+		 #if flash
+			 displayText.x = objectClip.x - objectClip.width / 2 ;
+			 displayText.y = objectClip.y - objectClip.height / 3 ;
+			 displayText.width = objectClip.width;
+			 displayText.height = objectClip.height;
+		 #elseif android
+			displayText.x = objectClip.x - objectClip.width  / 2.5;
+			displayText.y = objectClip.y - objectClip.height / 3 ;
+			displayText.width = objectClip.width;
+			displayText.height = objectClip.height;
+		 #end
 		 
 		 fontFmt.size = cast (Math.floor(objectClip.height * 7 / 10), Int);
 		 fontFmt.color = (color == null) ? 0x000000 : color; 
