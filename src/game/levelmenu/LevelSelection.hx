@@ -3,6 +3,7 @@ import engine.scene.BaseScene;
 import game.common.utils.ButtonAdder;
 import game.levelmenu.levels.LvlComing;
 import game.levelmenu.levels.LvlTapemIcon;
+import game.levelmenu.utils.PageIcon;
 import nme.events.Event;
 import engine.objects.Button;
 import engine.objects.SceneObject;
@@ -44,11 +45,13 @@ class LevelSelection extends BaseScene
 		var count : Int = 0;
 		for (i in levelsTable) {
 			addChild(i.objectClip);
-			if (count % 6 == 0 || count % 6 == 1 || count % 6 == 2) {
-				i.resizeMovieClip(i.objectClip, 375, 230, 4, ((count % 3) * 5.5 + 3.5) / 18.0, (6.0) / 18.0);
-			}else {
-				i.resizeMovieClip(i.objectClip, 375, 230, 4, ((count % 3) * 5.5 + 3.5) / 18.0, (13.0) / 18.0);
-			}
+			resizeLevelTable(i, count);
+			count++;
+		}
+		count = 0;
+		for (i in pageIcons) {
+			addChild(i.objectClip);
+			resizePageIcon(i, count);
 			count++;
 		}
 		
@@ -58,20 +61,32 @@ class LevelSelection extends BaseScene
 		resizeBackground();
 		var count : Int = 0;
 		for (i in levelsTable) {
-			switch (count % 6) {
-				case 0: case 1: case 2:
-					i.resizeMovieClip(i.objectClip, 375, 230, 4, (count % 3 * 5 + 3.0) / 18.0, (6.0) / 18.0);
-				case 3: case 4: case 5:
-					i.resizeMovieClip(i.objectClip, 375, 230, 4, (count % 3 * 5 + 3.0) / 18.0, (13.0) / 18.0);
-			}
+			resizeLevelTable(i, count);
 			count++;
 		}
+		for (i in pageIcons) {
+			resizePageIcon(i, count);
+			count++;
+		}
+	}
+	
+	private function resizeLevelTable(levelIcon : Button, index : Int) {
+		if (index % 6 == 0 || index % 6 == 1 || index % 6 == 2) {
+			levelIcon.resizeMovieClip(levelIcon.objectClip, 375, 230, 4, ((index % 3) * 5.5 + 3.5) / 18.0, (6.0) / 18.0);
+		}else {
+			levelIcon.resizeMovieClip(levelIcon.objectClip, 375, 230, 4, ((index % 3) * 5.5 + 3.5) / 18.0, (13.0) / 18.0);
+		}
+	}
+	private function resizePageIcon(page : SceneObject, index : Int) {
+			page.resizeMovieClip(page.objectClip, 113, 113, 40, (index / 1.5 + 8.5) / 18.0, (16.5) / 18.0);
 	}
 	
 	private function initialLevelsTable() {
 		levelsTable = new Hash<Button>();
 		pageIcons = new Hash<SceneObject>();
-		pageIcons.
+		pageIcons.set("Page1", new PageIcon(true));
+		pageIcons.set("Page2", new PageIcon());
+		pageIcons.set("Page3", new PageIcon());
 		levelsTable.set("Level1", new LvlTapemIcon());
 		levelsTable.set("Level2", new LvlComing());
 		levelsTable.set("Level3", new LvlComing());
