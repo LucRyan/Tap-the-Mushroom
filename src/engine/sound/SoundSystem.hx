@@ -46,10 +46,10 @@ class SoundSystem
 		soundPool = new Hash<Sound>();
 		soundChannelPool = new Hash<SoundChannel>();
 		loadSound("LevelBackground", "wav");
-		loadSound("MenuButton", "mp3");
+		loadSound("Stars", "mp3");
 		loadSound("MushroomJump", "mp3");
 		loadSound("PokeMushroom", "wav");
-		loadSound("RestartButton", "wav");
+		loadSound("Button", "wav");
 	}
 	
 	private function loadSound( name : String, format : String) : Void {

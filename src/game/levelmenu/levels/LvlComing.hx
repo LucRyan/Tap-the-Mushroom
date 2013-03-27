@@ -19,11 +19,6 @@ class LvlComing extends Button
 		MTimer.TIMER.getInstance().wait(60, stopIcon); // Use Timer just for fixing bug
 		addListener();
 	}
-	
-	override public function mouseClick(mouseEvent : MouseEvent) {
-		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("MenuButton", 1);
-	}
-	
 		
 	private function stopIcon(event:TimerEvent) :Void {
 		objectClip.gotoAndStop(2);

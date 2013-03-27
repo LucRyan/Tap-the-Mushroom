@@ -52,7 +52,7 @@ class Stars extends TextObject
 	 
 	 public function playAnimation(?event : TimerEvent) {
 		 objectClip.play();
-		 SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("MenuButton");
+		 SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("Stars");
 	 }
 	 
 	 public function stopAnimation(?event : TimerEvent) {

@@ -23,7 +23,7 @@ class MenuButton extends Button
 	}
 	
 	override public function mouseClick(mouseEvent : MouseEvent) {
-		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("MenuButton", 1);
+		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("Button", 1);
 		LevelManager.LEVEL_MANAGER.getInstance().changePages(LevelSel);
 	}
 	
