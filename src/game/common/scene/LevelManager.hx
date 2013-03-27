@@ -1,5 +1,5 @@
 package game.common.scene;
-import game.level.LevelContainer;
+import game.levelmenu.LevelSelection;
 import nme.display.Sprite;
 import engine.scene.BaseScene;
 import nme.events.Event;
@@ -15,7 +15,7 @@ import nme.Lib;
  */
 
  enum LevelsEM {
-	 LevelCon;
+	 LevelSel;
 	 TapEmALL;
 	 ScoreBoards;
  }
@@ -56,9 +56,9 @@ class LevelManager
 			currentStage = null;
 		}
 		switch(levelId) {
-			case LevelCon:
-				currentStage = new LevelContainer();
-				currentStageName = LevelCon;
+			case LevelSel:
+				currentStage = new LevelSelection();
+				currentStageName = LevelSel;
 			case TapEmALL:
 				currentStage = new TapemALvl();
 				currentStageName = TapEmALL;

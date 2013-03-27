@@ -44,7 +44,6 @@ class CountDownTimer extends TextObject, implements ITickable
 		 textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 4);
 	 }
 	 
-	 
 	 public function startCount() {
 		 if(!countTimer.running){
 			countTimer.start();

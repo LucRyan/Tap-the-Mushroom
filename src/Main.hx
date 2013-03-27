@@ -33,7 +33,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		LevelManager.LEVEL_MANAGER.getInstance().changePages(LevelCon);
+		LevelManager.LEVEL_MANAGER.getInstance().changePages(LevelSel);
 		LevelManager.LEVEL_MANAGER.getInstance().isFirstTime = false;
 		
 	}

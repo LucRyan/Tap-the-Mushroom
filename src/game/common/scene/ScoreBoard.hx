@@ -89,8 +89,8 @@ class ScoreBoard extends BaseScene
 		currentScoreText.resizeText("Current Score: ", 0xCC9900);
 		bestScoreText.resizeMovieClip(bestScoreText.objectClip, 359, 219, 15,  2.1 / 10.0, 5 / 12.0);
 		bestScoreText.resizeText("Best Score: ", 0xCC9900);
-		levelCompleteInfoText.resizeMovieClip(levelCompleteInfoText.objectClip, 359, 219, 12,  5 / 10.0, 1.5 / 12.0);
-		levelCompleteInfoText.resizeText("Level 1 Completed!! ", 0xFFFFFF);
+		levelCompleteInfoText.resizeMovieClip(levelCompleteInfoText.objectClip, 359, 219, 12,  5.2 / 10.0, 1.5 / 12.0);
+		levelCompleteInfoText.resizeText("Level Tap 'em All Completed!! ", 0xFFFFFF);
 		
 		//TODO: TEMP DISPLAY!!---------------------------------
 		bestScrVl.resizeMovieClip(bestScrVl.objectClip, 359, 219, 15,  4 / 10.0, 5 / 12.0);

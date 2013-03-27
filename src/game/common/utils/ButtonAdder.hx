@@ -28,8 +28,8 @@ class ButtonAdder
 	
 	
 	public function resizeButtons() : Void {
-		menuButton.resizeMovieClip(menuButton.objectClip, 527, 132, 9, 1.0 / 13.0, 17.0 / 18.0);
-		restartButton.resizeMovieClip(restartButton.objectClip, 231, 184, 22, 17.0 / 18.0, 17.0 / 18.0); 
+		menuButton.resizeMovieClip(menuButton.objectClip, 527, 132, 8, 1.0 / 13.0, 17.0 / 18.0);
+		restartButton.resizeMovieClip(restartButton.objectClip, 231, 184, 21, 17.0 / 18.0, 17.0 / 18.0); 
 	}
 	
 	public function addButtons(stage : Sprite) {
