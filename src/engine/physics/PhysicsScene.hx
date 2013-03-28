@@ -17,7 +17,7 @@ import nme.events.Event;
  */
 class PhysicsScene extends BaseScene
 {
-	private var PHYSICS_SCALE : Float = 1 / 30;
+	public static var PHYSICS_SCALE : Float = 1 / 30;
 	private var physicsDebug:Sprite;
 	private var world:B2World;
 	

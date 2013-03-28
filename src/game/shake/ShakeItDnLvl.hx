@@ -1,5 +1,6 @@
 package game.shake;
 import engine.objects.SceneObject;
+import engine.physics.PhysicsObject;
 import engine.physics.PhysicsScene;
 import format.display.MovieClip;
 import nme.display.Sprite;
@@ -22,7 +23,8 @@ import nme.display.Bitmap;
  */
 class ShakeItDnLvl extends PhysicsScene
 {
-	var clip : Bitmap;
+	var mushroom : PhysicsObject;
+	var wall : PhysicsObject;
 	
 	public function new() 
 	{
@@ -32,54 +34,24 @@ class ShakeItDnLvl extends PhysicsScene
 	}
 	
 	override private function construct ():Void {
-		createBox (400, 400, 800, 10, false);
 		
-		createBox (250, 100, 100, 100, true);
-		
+		mushroom = new PhysicsObject(); 
+		mushroom.createBody(world, 188, 155, 4, 350, 100, true);
+		mushroom.setFixtureDef(1.0, 0.3);
+		wall = new PhysicsObject();
+		wall.createBody(world, 188, 155, 3, 300, 400, false);
 		
 		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
 	}
 	
-	var body : B2Body;
-	private function createBox (x:Float, y:Float, width:Float, height:Float, dynamicBody:Bool):Void {
-		
-		var bodyDefinition = new B2BodyDef ();
-		clip = new Bitmap(Assets.getBitmapData("img/TapThemAll/bMushroom.png"));
-		bodyDefinition.position.set (x * PHYSICS_SCALE, y * PHYSICS_SCALE);
-
-		if (dynamicBody) {
-			bodyDefinition.type = B2Body.b2_dynamicBody;
-		}
-		
-		var polygon = new B2PolygonShape ();
-		polygon.setAsBox ((width / 2) * PHYSICS_SCALE, (height / 2) * PHYSICS_SCALE);
-		
-		var fixtureDefinition = new B2FixtureDef ();
-		fixtureDefinition.shape = polygon;
-		bodyDefinition.userData = clip;
-		clip.x = x * PHYSICS_SCALE;
-		clip.y = y * PHYSICS_SCALE;
-		
-		body = world.createBody (bodyDefinition);
-		body.createFixture (fixtureDefinition);
-		
-		addChild(body.getUserData());
-	}
-	
-	private function drawCLip() : Void{
-		clip.x = body.getPosition().x / PHYSICS_SCALE;
-		clip.y = body.getPosition().y / PHYSICS_SCALE;
-	}
-	
-	
 	// Event Handlers
 	
 	override private function update (?deltaTime : Float) : Void {
-		drawCLip();
 		world.step (1 / 30, 10, 10);
 		world.clearForces ();
-		world.drawDebugData ();
-		
+		//world.drawDebugData ();
+		mushroom.tick();
+		wall.tick();
 	}
 	
 	
