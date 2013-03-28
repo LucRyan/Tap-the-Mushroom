@@ -1,5 +1,6 @@
 package game.common.scene;
 import game.levelmenu.LevelSelection;
+import game.shake.ShakeItDnLvl;
 import nme.display.Sprite;
 import engine.scene.BaseScene;
 import nme.events.Event;
@@ -17,6 +18,7 @@ import nme.Lib;
  enum LevelsEM {
 	 LevelSel;
 	 TapEmALL;
+	 ShakeIt;
 	 ScoreBoards;
  }
 
@@ -62,6 +64,9 @@ class LevelManager
 			case TapEmALL:
 				currentStage = new TapemALvl();
 				currentStageName = TapEmALL;
+			case ShakeIt:
+				currentStage = new ShakeItDnLvl();
+				currentStageName = ShakeIt;
 			case ScoreBoards:
 				currentStage = new ScoreBoard();
 		}

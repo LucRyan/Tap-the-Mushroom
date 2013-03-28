@@ -35,7 +35,7 @@ class BaseScene extends Sprite
 	}
 	
 	//Update function
-	private function update() : Void {}
+	private function update(?deltaTime : Float) : Void {}
 	
 	//Restart the Level.
 	public function  restart() : Void {}

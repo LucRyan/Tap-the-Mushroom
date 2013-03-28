@@ -17,6 +17,7 @@
 	<source path="src" />
 	<haxelib name="nme" />
 	<haxelib name="actuate" />
+	<haxelib name="box2d" />
 	
 	<!-- assets -->
 	<icon path="assets/TapTheMushroom.png" />

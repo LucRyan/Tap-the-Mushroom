@@ -122,7 +122,7 @@ class TapemALvl extends BaseScene
 	/**
 	 * Update function
 	 */
-	override private function update() : Void {
+	override private function update(?deltaTime : Float) : Void {
 		if(updateAnimationFlag)
 			updateAnimation();
 	}
