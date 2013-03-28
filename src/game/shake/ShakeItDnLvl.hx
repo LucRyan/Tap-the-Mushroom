@@ -16,6 +16,7 @@ import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
 import nme.display.Bitmap;
+import game.common.utils.ButtonAdder;
 
 /**
  * ...
@@ -23,6 +24,8 @@ import nme.display.Bitmap;
  */
 class ShakeItDnLvl extends PhysicsScene
 {
+	
+	var buttonAdder : ButtonAdder;
 	var mushroom : PhysicsObject;
 	var wall : PhysicsObject;
 	
@@ -33,15 +36,32 @@ class ShakeItDnLvl extends PhysicsScene
 		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
 	}
 	
+	override function delete() {
+		
+	}
+	
+	
 	override private function construct ():Void {
 		
 		mushroom = new PhysicsObject(); 
-		mushroom.createBody(world, 188, 155, 4, 350, 100, true);
+		mushroom.createBody(world, 188, 155, 4, 350, 50, true);
 		mushroom.setFixtureDef(1.0, 0.3);
 		wall = new PhysicsObject();
-		wall.createBody(world, 188, 155, 3, 300, 400, false);
+		
+		wall.createBody(world, 188, 155, 2, 400, 400, false);
+		initialObjects();
+		addObjects();
 		
 		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
+	}
+	
+	private function initialObjects() {
+		buttonAdder = new ButtonAdder();
+		loadBackground("img/background.jpg");
+	}
+	private function addObjects() : Void {
+		addChild(background);
+		buttonAdder.addButtons(this);
 	}
 	
 	// Event Handlers
@@ -49,7 +69,7 @@ class ShakeItDnLvl extends PhysicsScene
 	override private function update (?deltaTime : Float) : Void {
 		world.step (1 / 30, 10, 10);
 		world.clearForces ();
-		//world.drawDebugData ();
+		world.drawDebugData ();
 		mushroom.tick();
 		wall.tick();
 	}

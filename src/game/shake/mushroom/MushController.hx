@@ -1,16 +1,15 @@
 package game.shake.mushroom;
-import engine.physics.PhysicsObject;
+import engine.utils.ITickable;
 
 /**
  * ...
  * @author Yang Wang
  */
-class Mushroom extends PhysicsObject
+class MushController implements ITickable
 {
 
 	public function new() 
 	{
-		super();
 		
 	}
 	

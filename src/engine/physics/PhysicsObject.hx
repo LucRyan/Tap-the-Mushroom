@@ -69,7 +69,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 		bodyDefinition.userData = objectClip;
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
-		Lib.current.addChild(body.getUserData());
+		Lib.current.stage.addChild(body.getUserData());
 	}
 	
 	public function setFixtureDef( density : Float = 1.0, friction : Float = 0.3) : Void {

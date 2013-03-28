@@ -139,18 +139,7 @@ class TapemALvl extends BaseScene
 	 * Override the construct which will load the stage when the level start.
 	 */
 	override private function construct () {
-		//Initialize the instances.
-		countDownTimer = new CountDownTimer();
-		mushPlanter = new MushroomPlanter();
-		mushroomPool = new Array<Mushroom>();
-		mushController = new MushroomController();
-		shaker = new ScreenShaker();
-		buttonAdder = new ButtonAdder();
-		
-		//Load all the Object.
-		loadBackground("img/background.jpg");
-		mushroomPool = mushPlanter.plantMushrooms();
-		
+		initialObjects();
 		//Add the Sprite to stage.
 		resize ();
 		addBasicObjects();
@@ -167,6 +156,19 @@ class TapemALvl extends BaseScene
 		stage.addEventListener(Event.RESIZE, stage_onResize);
 		//Handle Finished
 		countDownTimer.setCompleteEvent(finished);
+	}
+	
+	private function initialObjects() :Void {
+		//Initialize the instances.
+		countDownTimer = new CountDownTimer();
+		mushPlanter = new MushroomPlanter();
+		mushroomPool = new Array<Mushroom>();
+		mushController = new MushroomController();
+		shaker = new ScreenShaker();
+		buttonAdder = new ButtonAdder();
+		//Load all the Object.
+		loadBackground("img/background.jpg");
+		mushroomPool = mushPlanter.plantMushrooms();
 	}
 	
 	// TODO: THIS FUNCTION NEED REFACTOR!!!! THINK ABOUT OCP, TRY TO USE
