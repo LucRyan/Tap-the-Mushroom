@@ -17,6 +17,7 @@ import nme.Assets;
 import nme.Lib;
 import nme.display.Bitmap;
 import game.common.utils.ButtonAdder;
+import engine.utils.SafeRemover;
 
 /**
  * ...
@@ -37,20 +38,28 @@ class ShakeItDnLvl extends PhysicsScene
 	}
 	
 	override function delete() {
-		
+		super.removeChild(background);
+		SafeRemover.safeRemove(this);
+		buttonAdder.delete();
+		removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, true);
+		//world.getBodyList(
 	}
 	
 	
 	override private function construct ():Void {
-		
-		mushroom = new PhysicsObject(); 
-		mushroom.createBody(world, 188, 155, 4, 350, 50, true);
-		mushroom.setFixtureDef(1.0, 0.3);
-		wall = new PhysicsObject();
-		
-		wall.createBody(world, 188, 155, 2, 400, 400, false);
 		initialObjects();
 		addObjects();
+		
+		mushroom = new PhysicsObject(); 
+		mushroom.createBody(this, world, 188, 155, 4, 350, 50, true);
+
+
+		mushroom.setFixtureDef(1.0, 0.3);
+		wall = new PhysicsObject();
+	
+		wall.createBody(this, world, 188, 155, 2, 400, 400, false);
+
+
 		
 		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
 	}

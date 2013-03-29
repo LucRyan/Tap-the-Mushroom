@@ -66,6 +66,7 @@ class TapemALvl extends BaseScene
 	
 	override public function delete() {
 		countDownTimer.stopCount();
+		buttonAdder.delete();
 		super.removeChild(background);
 		this.removeEventListener(Event.ADDED_TO_STAGE, this_onAddedToStage, false);
 		this.removeEventListener(Event.RESIZE, stage_onResize, true);

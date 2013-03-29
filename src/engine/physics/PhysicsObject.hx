@@ -8,6 +8,7 @@ import box2D.dynamics.B2BodyDef;
 import box2D.dynamics.B2DebugDraw;
 import box2D.dynamics.B2FixtureDef;
 import box2D.dynamics.B2World;
+import engine.scene.BaseScene;
 import engine.utils.ITickable;
 import nme.events.Event;
 import nme.Lib;
@@ -28,6 +29,8 @@ class PhysicsObject extends SceneObject, implements ITickable
 		super();
 	}
 	
+	
+	
 	public function tick() {
 		updateBody();
 	}
@@ -44,7 +47,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 	 * @param	dynamicBody set true if you want it is dynamic
 	 * @param	?movieClipPath 
 	 */
-	public function createBody (world : B2World, originWidth : Int, originHeight : Int, sizeLvl : Int, positionX : Float, positionY : Float, dynamicBody:Bool, ?movieClipPath : String):Void {
+	public function createBody (stage: BaseScene, world : B2World, originWidth : Int, originHeight : Int, sizeLvl : Int, positionX : Float, positionY : Float, dynamicBody:Bool, ?movieClipPath : String):Void {
 		
 		var scaleWidth = Lib.current.stage.stageWidth / 30 * sizeLvl; // margin is width/10, and the scale offset is width/40.
 		var scaleHeight = scaleWidth / originWidth * originHeight; // Scale the height with Image ratio.
@@ -69,7 +72,8 @@ class PhysicsObject extends SceneObject, implements ITickable
 		bodyDefinition.userData = objectClip;
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
-		Lib.current.stage.addChild(body.getUserData());
+		
+		stage.addChildAt(body.getUserData(), 4);
 	}
 	
 	public function setFixtureDef( density : Float = 1.0, friction : Float = 0.3) : Void {

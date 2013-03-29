@@ -21,6 +21,11 @@ class ButtonAdder
 		initializeButtons();
 	}
 	
+	public function delete() {
+		menuButton.delete();
+		restartButton.delete();
+	}
+	
 	private function initializeButtons() : Void{
 		menuButton = new MenuButton();
 		restartButton = new RestartButton();

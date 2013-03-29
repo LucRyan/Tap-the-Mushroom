@@ -37,6 +37,7 @@ class ScoreBoard extends BaseScene
 	
 	override public function delete() {
 		SafeRemover.safeRemove(this);
+		removeEventListener(Event.RESIZE, stage_onResize);
 	}
 	
 	override private function construct () {

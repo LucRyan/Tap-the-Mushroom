@@ -16,6 +16,16 @@ class TouchableObject extends SceneObject
 		super();
 	}
 
+	public function delete() {
+		objectClip.buttonMode = false;
+		
+		objectClip.removeEventListener(MouseEvent.CLICK, mouseClick, false);
+		objectClip.removeEventListener(MouseEvent.DOUBLE_CLICK, mouseDoubleClick, false);
+		objectClip.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDown, false);
+		objectClip.removeEventListener(MouseEvent.MOUSE_UP, mouseUp, false);
+		objectClip.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver, false);
+		objectClip.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut, false);
+	}
 	/**
 	 * Add all listener for Touchable Object.
 	 * Designed for two platform.
