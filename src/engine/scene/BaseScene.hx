@@ -32,6 +32,7 @@ class BaseScene extends Sprite
 	//Deconstructor
 	public function delete() : Void {
 		SafeRemover.safeRemove(this);
+		removeEventListener(Event.ADDED_TO_STAGE, this_onAddedToStage, false);
 	}
 	
 	//Update function

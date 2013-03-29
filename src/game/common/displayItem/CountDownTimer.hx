@@ -29,7 +29,7 @@ class CountDownTimer extends TextObject, implements ITickable
 		objectClip.gotoAndStop(2);
 	}
 	
-	public function tick() 
+	public function tick(?deltaTime : Float) 
 	{
 		updateTimer();
 	}

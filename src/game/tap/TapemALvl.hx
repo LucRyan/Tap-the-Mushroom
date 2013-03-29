@@ -47,10 +47,9 @@ class TapemALvl extends BaseScene
 	var tempAnimationIndex : Int; // The index need by animation.
 	
 	//--------- Animation Variables ----------//
-	var lastAnimationStamp  : Float; // AnimationStamp
+	var lastAnimationStamp  : Float = 0; // AnimationStamp
 	inline static var SJUMP_DURATION : Float = (35 / 30) * 1000;
 	inline static var WHOLE_DURATION : Float = 2000 + (35 / 30) * 1000;
-	var firstAnimationFlag : Bool = true;
 	var updateAnimationFlag : Bool = true;
 	
 	//----------------------------------------------------------------------------------------------
@@ -65,14 +64,13 @@ class TapemALvl extends BaseScene
 	}
 	
 	override public function delete() {
+		super.delete();
 		countDownTimer.stopCount();
 		buttonAdder.delete();
 		super.removeChild(background);
-		this.removeEventListener(Event.ADDED_TO_STAGE, this_onAddedToStage, false);
 		this.removeEventListener(Event.RESIZE, stage_onResize, true);
 		this.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, false);
 		this.removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
-		SafeRemover.safeRemove(this);
 	}
 	
 	// -------------------------- Animation Part ---------------------------------------//
@@ -90,9 +88,8 @@ class TapemALvl extends BaseScene
 	 * Update the animation, mushroom jumps.
 	 */	
 	private function updateAnimation() {
-		if((WHOLE_DURATION <= Lib.getTimer() - lastAnimationStamp) || firstAnimationFlag  )
+		if((WHOLE_DURATION <= Lib.getTimer() - lastAnimationStamp))
 		{
-			firstAnimationFlag = false;
 			//Start Mushroom jump.
 			tempAnimationIndex = Std.int(Math.random() * 40); 
 			lastAnimationStamp = Lib.getTimer();
@@ -187,9 +184,9 @@ class TapemALvl extends BaseScene
 	}
 	
 	override private function resize () {
+		super.resize();
 		resizecountDownTimer();
 		buttonAdder.resizeButtons();
-		resizeBackground();
 		for (i in 0 ... 40) {
 			var tempMush : Mushroom = mushroomPool[i];
 			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 4);

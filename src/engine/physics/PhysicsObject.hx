@@ -30,9 +30,12 @@ class PhysicsObject extends SceneObject, implements ITickable
 	}
 	
 	
-	
-	public function tick() {
-		updateBody();
+	var lastUpdateStamp : Float = 0;
+	public function tick(?deltaTime : Float = 1.0) {
+		if ((1000 / 30) * deltaTime <= Lib.getTimer() - lastUpdateStamp) {
+			lastUpdateStamp = Lib.getTimer();
+			updateBody();
+		}
 	}
 	
 	/**
@@ -72,8 +75,20 @@ class PhysicsObject extends SceneObject, implements ITickable
 		bodyDefinition.userData = objectClip;
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
-		
-		stage.addChildAt(body.getUserData(), 4);
+
+		body.getUserData().gotoAndStop(2);
+		stage.addChildAt(body.getUserData(), 2);
+	}
+	
+	public function resizeBody(originWidth : Int, originHeight : Int, sizeLvl : Float) {
+		if (sizeLvl <= 0) sizeLvl = 0;
+		var scaleWidth = Lib.current.stage.stageWidth / 30 * sizeLvl; // margin is width/10, and the scale offset is width/40.
+		var scaleHeight = scaleWidth / originWidth * originHeight; // Scale the height with Image ratio.
+		var polygon = new B2PolygonShape();
+		polygon.setAsBox ((scaleWidth / 2) * PhysicsScene.PHYSICS_SCALE, (scaleHeight / 2) * PhysicsScene.PHYSICS_SCALE);
+		body.m_fixtureList.m_shape = polygon;
+		body.getUserData().width = scaleWidth;
+		body.getUserData().height = scaleHeight;
 	}
 	
 	public function setFixtureDef( density : Float = 1.0, friction : Float = 0.3) : Void {

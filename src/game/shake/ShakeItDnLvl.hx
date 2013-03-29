@@ -38,8 +38,7 @@ class ShakeItDnLvl extends PhysicsScene
 	}
 	
 	override function delete() {
-		super.removeChild(background);
-		SafeRemover.safeRemove(this);
+		super.delete();
 		buttonAdder.delete();
 		removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, true);
 		//world.getBodyList(
@@ -51,6 +50,7 @@ class ShakeItDnLvl extends PhysicsScene
 		addObjects();
 		
 		mushroom = new PhysicsObject(); 
+		
 		mushroom.createBody(this, world, 188, 155, 4, 350, 50, true);
 
 
@@ -69,17 +69,19 @@ class ShakeItDnLvl extends PhysicsScene
 		loadBackground("img/background.jpg");
 	}
 	private function addObjects() : Void {
-		addChild(background);
+		//addChild(background);
 		buttonAdder.addButtons(this);
 	}
 	
 	// Event Handlers
-	
+		var sizeLvl : Float = 4;
 	override private function update (?deltaTime : Float) : Void {
 		world.step (1 / 30, 10, 10);
 		world.clearForces ();
 		world.drawDebugData ();
-		mushroom.tick();
+		//sizeLvl -= 0.1;
+		//mushroom.resizeBody(188, 155, sizeLvl);
+		mushroom.tick(0.5);
 		wall.tick();
 	}
 	

@@ -6,6 +6,6 @@ package engine.utils;
  */
 interface ITickable
 {
-	public function tick() : Void;
+	public function tick(?deltaTime : Float) : Void;
 	
 }
