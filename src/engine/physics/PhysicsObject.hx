@@ -50,7 +50,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 	 * @param	dynamicBody set true if you want it is dynamic
 	 * @param	?movieClipPath 
 	 */
-	public function createBody (stage: BaseScene, world : B2World, originWidth : Int, originHeight : Int, sizeLvl : Int, positionX : Float, positionY : Float, dynamicBody:Bool, ?movieClipPath : String):Void {
+	public function createBody (stage: BaseScene, world : B2World, originWidth : Int, originHeight : Int, sizeLvl : Float, positionX : Float, positionY : Float, dynamicBody:Bool, ?movieClipPath : String):Void {
 		
 		var scaleWidth = Lib.current.stage.stageWidth / 30 * sizeLvl; // margin is width/10, and the scale offset is width/40.
 		var scaleHeight = scaleWidth / originWidth * originHeight; // Scale the height with Image ratio.
@@ -75,7 +75,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 		bodyDefinition.userData = objectClip;
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
-
+		
 		body.getUserData().gotoAndStop(2);
 		stage.addChildAt(body.getUserData(), 2);
 	}
@@ -91,8 +91,9 @@ class PhysicsObject extends SceneObject, implements ITickable
 		body.getUserData().height = scaleHeight;
 	}
 	
-	public function setFixtureDef( density : Float = 1.0, friction : Float = 0.3) : Void {
+	public function setFixtureDef( ?density : Float = 1.0, ?restitution : Float = 1.0,  ?friction : Float = 0.1) : Void {
 		body.m_fixtureList.setDensity(density);
+		body.m_fixtureList.setRestitution(restitution);
 		body.m_fixtureList.setFriction(friction);
 		body.resetMassData();
 	}
@@ -109,6 +110,10 @@ class PhysicsObject extends SceneObject, implements ITickable
 		objectClip.y = y;
 		objectClip.width = width;
 		objectClip.height = height;
+	}
+	
+	public function getBody() : B2Body {
+		return body;
 	}
 	
 	

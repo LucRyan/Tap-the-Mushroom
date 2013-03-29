@@ -42,4 +42,5 @@ class PhysicsScene extends BaseScene
 		world.setDebugDraw (debugDraw);
 		addChild (physicsDebug);
 	}
+	
 }

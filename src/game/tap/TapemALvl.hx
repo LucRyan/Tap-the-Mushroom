@@ -88,7 +88,7 @@ class TapemALvl extends BaseScene
 	 * Update the animation, mushroom jumps.
 	 */	
 	private function updateAnimation() {
-		if((WHOLE_DURATION <= Lib.getTimer() - lastAnimationStamp))
+		if((WHOLE_DURATION * 1.5 <= Lib.getTimer() - lastAnimationStamp))
 		{
 			//Start Mushroom jump.
 			tempAnimationIndex = Std.int(Math.random() * 40); 

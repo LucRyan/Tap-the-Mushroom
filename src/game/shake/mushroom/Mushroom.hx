@@ -7,11 +7,13 @@ import engine.physics.PhysicsObject;
  */
 class Mushroom extends PhysicsObject
 {
+	var health : Int;
 
 	public function new() 
 	{
 		super();
 		
 	}
+	
 	
 }
