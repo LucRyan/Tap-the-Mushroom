@@ -43,14 +43,14 @@ class MushController implements ITickable
 	}
 	private function onAccUpdate(event : AccelerometerEvent): Void {
 	
-		acceleration.set(event.accelerationY * 10, event.accelerationX * 10);
+		acceleration.set(event.accelerationY * 10, 0);
 	}
 	
 	private function initialAccelerometer() : Void{
 		if(nme.sensors.Accelerometer.isSupported) {
 			accl = new Accelerometer();
 			controller = new B2ConstantAccelController();
-			
+			actor.getBody().setSleepingAllowed(false);
 			acceleration = new B2Vec2();
 			accl.setRequestedUpdateInterval(0);
 			accl.addEventListener(AccelerometerEvent.UPDATE, onAccUpdate);

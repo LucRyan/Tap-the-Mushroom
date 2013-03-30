@@ -80,7 +80,7 @@ class ShakeItDnLvl extends PhysicsScene
 		loadBackground("img/background.jpg");
 	}
 	private function addObjects() : Void {
-		//addChild(background);
+		addChild(background);
 		buttonAdder.addButtons(this);
 	}
 	
