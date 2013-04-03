@@ -28,6 +28,6 @@ class Mushroom extends TouchableObject
 
 	override public function mouseClick(mouseEvent : MouseEvent) {
 		objectClip.visible = false;
-		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("PokeMushroom", 1);
+		SoundSystem.getInstance().playSoundFx("PokeMushroom", 1);
 	}
 }

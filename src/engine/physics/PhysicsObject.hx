@@ -74,13 +74,12 @@ class PhysicsObject extends SceneObject, implements ITickable
 		fixtureDefinition.shape = polygon;
 		
 		//Set Drawable
-		bodyDefinition.userData = objectClip;
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
 		
 		//Add drawables to stage
-		body.getUserData().gotoAndStop(2);
-		stage.addChildAt(body.getUserData(), 2);
+		objectClip.gotoAndStop(2);
+		stage.addChildAt(objectClip, 2);
 	}
 	
 	public function resizeBody(originWidth : Int, originHeight : Int, sizeLvl : Float) {
@@ -90,8 +89,8 @@ class PhysicsObject extends SceneObject, implements ITickable
 		var polygon = new B2PolygonShape();
 		polygon.setAsBox ((scaleWidth / 2) * PhysicsScene.PHYSICS_SCALE, (scaleHeight / 2) * PhysicsScene.PHYSICS_SCALE);
 		body.m_fixtureList.m_shape = polygon;
-		body.getUserData().width = scaleWidth;
-		body.getUserData().height = scaleHeight;
+		objectClip.width = scaleWidth;
+		objectClip.height = scaleHeight;
 	}
 	
 	public function setFixtureDef( ?density : Float = 1.0, ?restitution : Float = 1.0,  ?friction : Float = 0.1) : Void {
@@ -101,9 +100,13 @@ class PhysicsObject extends SceneObject, implements ITickable
 		body.resetMassData();
 	}
 	
+	public function setUserData(data : Dynamic) {
+		body.setUserData(data);
+	}
+	
 	private function updateTexture() {
-		body.getUserData().x = body.getPosition().x / PhysicsScene.PHYSICS_SCALE;
-		body.getUserData().y = body.getPosition().y / PhysicsScene.PHYSICS_SCALE;
+		objectClip.x = body.getPosition().x / PhysicsScene.PHYSICS_SCALE;
+		objectClip.y = body.getPosition().y / PhysicsScene.PHYSICS_SCALE;
 		objectClip.rotation = body.getAngle() * (180 / Math.PI);
 	}
 		

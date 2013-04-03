@@ -14,10 +14,7 @@ import nme.Lib;
  * @author Yang Wang
  */
 class LevelSelection extends BaseScene
-{
-	public static inline var SCREEN_WIDTH = Lib.current.stage.stageWidth;
-	public static inline var SCREEN_HEIGHT = Lib.current.stage.stageHeight;
-	
+{	
 	var buttonAdder : ButtonAdder;
 	var levelsTable : Hash<Button>;
 	var pageIcons : Hash<SceneObject>;

@@ -25,13 +25,13 @@ import nme.Lib;
 class LevelManager
 {
 	// Use for singleton.
-	public static var LEVEL_MANAGER = new LevelManager();
+	private static var LEVEL_MANAGER = new LevelManager();
 
 	/**
 	 * Singleton function
 	 * @return
 	 */
-	public function getInstance() : LevelManager{
+	public static function getInstance() : LevelManager{
 		if ( LEVEL_MANAGER == null) {
 			LEVEL_MANAGER = new LevelManager();
 		}

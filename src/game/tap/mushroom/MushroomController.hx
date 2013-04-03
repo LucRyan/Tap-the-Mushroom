@@ -16,7 +16,7 @@ class MushroomController
 	
 	public function startJump(mushroom : Mushroom) : Void {
 		mushroom.objectClip.play();
-		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("MushroomJump", 1);
+		SoundSystem.getInstance().playSoundFx("MushroomJump", 1);
 	}
 	
 	public function stopJump(mushroom : Mushroom) : Void {

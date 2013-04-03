@@ -130,7 +130,7 @@ class TapemALvl extends BaseScene
 	 * @param	event
 	 */
 	private function goToScoreBoard(event: TimerEvent) {
-		LevelManager.LEVEL_MANAGER.getInstance().changePages(ScoreBoards);
+		LevelManager.getInstance().changePages(ScoreBoards);
 	}
 	
 	/**

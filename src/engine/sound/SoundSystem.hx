@@ -22,13 +22,13 @@ class SoundSystem
 	
 	
 	// Use for singleton.
-	public static var SOUND_SYSTEM : SoundSystem = new SoundSystem();
+	private static var SOUND_SYSTEM : SoundSystem = new SoundSystem();
 	
 	/**
 	 * Singleton function
 	 * @return
 	 */
-	public function getInstance() : SoundSystem{
+	public static function getInstance() : SoundSystem{
 		if ( SOUND_SYSTEM == null) {
 			SOUND_SYSTEM = new SoundSystem();
 		}

@@ -20,8 +20,8 @@ class RestartButton extends Button
 	}
 	
 	override public function mouseClick(mouseEvent : MouseEvent) {
-		SoundSystem.SOUND_SYSTEM.getInstance().playSoundFx("Button", 1);
-		LevelManager.LEVEL_MANAGER.getInstance().startFadeOut();
+		SoundSystem.getInstance().playSoundFx("Button", 1);
+		LevelManager.getInstance().startFadeOut();
 		
 	}
 	

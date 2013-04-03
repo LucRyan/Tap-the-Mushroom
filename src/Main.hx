@@ -32,8 +32,8 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		LevelManager.LEVEL_MANAGER.getInstance().changePages(ShakeIt);
-		LevelManager.LEVEL_MANAGER.getInstance().isFirstTime = false;
+		LevelManager.getInstance().changePages(ShakeIt);
+		LevelManager.getInstance().isFirstTime = false;
 		
 	}
 	
