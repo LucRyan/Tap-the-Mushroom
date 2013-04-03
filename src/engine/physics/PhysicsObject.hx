@@ -34,7 +34,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 	public function tick(?deltaTime : Float = 1.0) {
 		if ((1000 / 30) * deltaTime <= Lib.getTimer() - lastUpdateStamp) {
 			lastUpdateStamp = Lib.getTimer();
-			updateBody();
+			updateTexture();
 		}
 	}
 	
@@ -50,7 +50,8 @@ class PhysicsObject extends SceneObject, implements ITickable
 	 * @param	dynamicBody set true if you want it is dynamic
 	 * @param	?movieClipPath 
 	 */
-	public function createBody (stage: BaseScene, world : B2World, originWidth : Int, originHeight : Int, sizeLvl : Float, positionX : Float, positionY : Float, dynamicBody:Bool, ?movieClipPath : String):Void {
+	public function createBody (stage: BaseScene, world : B2World, originWidth : Int, originHeight : Int, sizeLvl : Float,
+								positionX : Float, positionY : Float, dynamicBody:Bool, ?movieClipPath : String):Void {
 		
 		var scaleWidth = Lib.current.stage.stageWidth / 30 * sizeLvl; // margin is width/10, and the scale offset is width/40.
 		var scaleHeight = scaleWidth / originWidth * originHeight; // Scale the height with Image ratio.
@@ -66,16 +67,18 @@ class PhysicsObject extends SceneObject, implements ITickable
 			bodyDefinition.type = B2Body.b2_dynamicBody;
 		}
 		
-		//Now set the shape is polygon.
+		//TODO: For Now set the shape is polygon.
 		var polygon = new B2PolygonShape();
 		polygon.setAsBox ((scaleWidth / 2) * PhysicsScene.PHYSICS_SCALE, (scaleHeight / 2) * PhysicsScene.PHYSICS_SCALE);
 		fixtureDefinition = new B2FixtureDef ();
 		fixtureDefinition.shape = polygon;
-	
+		
+		//Set Drawable
 		bodyDefinition.userData = objectClip;
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
 		
+		//Add drawables to stage
 		body.getUserData().gotoAndStop(2);
 		stage.addChildAt(body.getUserData(), 2);
 	}
@@ -98,7 +101,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 		body.resetMassData();
 	}
 	
-	private function updateBody() {
+	private function updateTexture() {
 		body.getUserData().x = body.getPosition().x / PhysicsScene.PHYSICS_SCALE;
 		body.getUserData().y = body.getPosition().y / PhysicsScene.PHYSICS_SCALE;
 		objectClip.rotation = body.getAngle() * (180 / Math.PI);

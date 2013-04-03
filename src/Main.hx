@@ -18,8 +18,7 @@ import game.tap.TapemALvl;
  */
 
 class Main extends Sprite 
-{
-
+{	
 	public function new() 
 	{
 		super();

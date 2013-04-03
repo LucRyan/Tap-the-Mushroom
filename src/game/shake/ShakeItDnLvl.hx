@@ -53,39 +53,42 @@ class ShakeItDnLvl extends PhysicsScene
 		initialObjects();
 		addObjects();
 		
-		mushroom = new Mushroom(); 
-		mushroom.createBody(this, world, 188, 155, 4, 350, 50, true);
-		mushroom.setFixtureDef(1.0, 0.1, 0.1);
-		controller = new MushController(mushroom);
 		
-		wall = new Hash<PhysicsObject>();
-		wall.set("bottom", new PhysicsObject());
-		wall.set("upper", new PhysicsObject());
-		wall.set("left", new PhysicsObject());
-		wall.set("right", new PhysicsObject());
-	
-		wall.get("bottom").createBody(this, world, 1000, 1, 60, 0, 470, false);
-		wall.get("upper").createBody(this, world, 1000, 1, 60, 10, 0, false);
-		wall.get("left").createBody(this, world, 1, 10000, 0.1, 0, 0, false);
-		wall.get("right").createBody(this, world, 1, 10000, 0.1, 800, 0, false);
-		wall.get("bottom").setFixtureDef(1.0, 0.5, 0.1);
-		wall.get("upper").setFixtureDef(1.0, 0.5, 0.1);
-		wall.get("left").setFixtureDef(1.0, 0.5, 0.1);
-		wall.get("right").setFixtureDef(1.0, 0.5, 0.1);
 		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
 	}
 	
 	private function initialObjects() {
 		buttonAdder = new ButtonAdder();
 		loadBackground("img/background.jpg");
+		mushroom = new Mushroom(); 
+		
+		wall = new Hash<PhysicsObject>();
+		wall.set("bottom", new PhysicsObject());
+		wall.set("upper", new PhysicsObject());
+		wall.set("left", new PhysicsObject());
+		wall.set("right", new PhysicsObject());
 	}
 	private function addObjects() : Void {
 		addChild(background);
 		buttonAdder.addButtons(this);
+		//Add Actor
+		mushroom.createBody(this, world, 188, 155, 4, 350, 50, true);
+		mushroom.setFixtureDef(1.0, 0.1, 0.1);
+		controller = new MushController(mushroom);
+		//Add Visible Wall
+		wall.get("bottom").visible = false;
+		wall.get("bottom").createBody(this, world, 1000, 1, 60, 0, 470, false);
+		wall.get("upper").createBody(this, world, 1000, 1, 60, 10, 0, false);
+		wall.get("left").createBody(this, world, 1, 1000, 0.1, 0, 0, false);
+		wall.get("right").createBody(this, world, 1, 1000, 0.1, 800, 0, false);
+		wall.get("bottom").setFixtureDef(1.0, 0.5, 0.1);
+		wall.get("upper").setFixtureDef(1.0, 0.5, 0.1);
+		wall.get("left").setFixtureDef(1.0, 0.5, 0.1);
+		wall.get("right").setFixtureDef(1.0, 0.5, 0.1);
 	}
 	
 	// Event Handlers
-		var sizeLvl : Float = 4;
+	var sizeLvl : Float = 4;
 	override private function update (?deltaTime : Float) : Void {
 		world.step (1 / 30, 10, 10);
 		#if android
@@ -93,9 +96,8 @@ class ShakeItDnLvl extends PhysicsScene
 		#end
 		world.clearForces ();
 		world.drawDebugData ();
-		
-		//sizeLvl -= 0.1;
-		//mushroom.resizeBody(188, 155, sizeLvl);
+
+		//Tick
 		controller.tick();
 		for (i in wall) {
 			i.tick();

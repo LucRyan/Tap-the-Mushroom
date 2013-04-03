@@ -7,6 +7,7 @@ import game.levelmenu.utils.PageIcon;
 import nme.events.Event;
 import engine.objects.Button;
 import engine.objects.SceneObject;
+import nme.Lib;
 
 /**
  * ...
@@ -14,7 +15,9 @@ import engine.objects.SceneObject;
  */
 class LevelSelection extends BaseScene
 {
-
+	public static inline var SCREEN_WIDTH = Lib.current.stage.stageWidth;
+	public static inline var SCREEN_HEIGHT = Lib.current.stage.stageHeight;
+	
 	var buttonAdder : ButtonAdder;
 	var levelsTable : Hash<Button>;
 	var pageIcons : Hash<SceneObject>;

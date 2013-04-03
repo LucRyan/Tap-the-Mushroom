@@ -35,15 +35,16 @@ class MushController implements ITickable
 	}
 	
 	public function delete() {
-		accl.removeEventListener(AccelerometerEvent.UPDATE, onAccUpdate);
+		if(nme.sensors.Accelerometer.isSupported) {
+			accl.removeEventListener(AccelerometerEvent.UPDATE, onAccUpdate);
+		}
 	}
 	
 	public function getAcceleration() : B2Vec2 {
 		return acceleration;
 	}
 	private function onAccUpdate(event : AccelerometerEvent): Void {
-	
-		acceleration.set(event.accelerationY * 10, 0);
+		acceleration.set(event.accelerationY * 15, event.accelerationX * 15);
 	}
 	
 	private function initialAccelerometer() : Void{

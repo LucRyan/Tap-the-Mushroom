@@ -11,8 +11,7 @@ class Mushroom extends PhysicsObject
 
 	public function new() 
 	{
-		super();
-		
+		super();		
 	}
 	
 
