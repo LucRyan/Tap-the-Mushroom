@@ -28,7 +28,7 @@ class ScoreBoard extends BaseScene
 	var starsBest : Array<Stars>; //
 	var starsCurrent : Array<Stars>; //
  
-	var scoreTEM : Int; //
+	var score : Int; //
 	
 	public function new() 
 	{
@@ -80,8 +80,8 @@ class ScoreBoard extends BaseScene
 		}
 		
 		//------------------------------ Get Score ----------------------------------
-		scoreTEM = ScoreSystem.getInstance().getScore();
-		starsAnimation(scoreTEM, 15, 5);
+		score = ScoreSystem.getInstance().getScore();
+		starsAnimation(score, 15, 5);
 	}
 	
 	
@@ -97,7 +97,7 @@ class ScoreBoard extends BaseScene
 		bestScrVl.resizeMovieClip(bestScrVl.objectClip, 359, 219, 15,  4 / 10.0, 5 / 12.0);
 		bestScrVl.resizeText("36 ", 0xCC9900);
 		currentScrVl.resizeMovieClip(currentScrVl.objectClip, 359, 219, 13,  4.6 / 10.0, 8 / 12.0);
-		currentScrVl.resizeText(Std.string(scoreTEM), 0xCC9900);
+		currentScrVl.resizeText(Std.string(score), 0xCC9900);
 		//------------------------------------
 		
 		buttonHelper.resizeButtons();

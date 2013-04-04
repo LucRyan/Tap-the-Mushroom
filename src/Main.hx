@@ -33,7 +33,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		LevelManager.getInstance().changePages(ShakeIt);
+		LevelManager.getInstance().changePages(LevelSel);
 		LevelManager.getInstance().isFirstTime = false;
 		
 		//TODO: Initialize the Soundsystem

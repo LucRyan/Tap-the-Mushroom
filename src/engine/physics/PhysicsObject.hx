@@ -73,7 +73,7 @@ class PhysicsObject extends SceneObject, implements ITickable
 		//Set Drawable
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
-
+		//Add Drawable
 		stage.addChildAt(objectClip, stage.numChildren);
 	}
 	

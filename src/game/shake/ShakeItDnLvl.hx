@@ -29,6 +29,8 @@ import engine.sound.SoundSystem;
 import engine.utils.MTimer;
 import engine.utils.ScreenShaker;
 import game.common.utils.ScoreSystem;
+import nme.events.TimerEvent;
+import game.common.scene.LevelManager;
 
 /**
  * ...
@@ -94,7 +96,15 @@ class ShakeItDnLvl extends PhysicsScene
 		ScoreSystem.getInstance().checkScoreSKT(hitScore);
 		var shaker : ScreenShaker = new ScreenShaker();
 		shaker.startAnimation(this);
-		//MTimer.TIMER.getInstance().wait(1000, goToScoreBoard);
+		MTimer.TIMER.getInstance().wait(1000, goToScoreBoard);
+	}
+	
+	/**
+	 * Page transfer
+	 * @param	event
+	 */
+	private function goToScoreBoard(event: TimerEvent) {
+		LevelManager.getInstance().changePages(ScoreBoards);
 	}
 		
 	//------------------------------------------- Basic Functions ----------------------------------------//

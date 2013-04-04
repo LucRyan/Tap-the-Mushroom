@@ -3,6 +3,7 @@ import engine.scene.BaseScene;
 import game.common.utils.ButtonHelper;
 import game.levelmenu.levels.LvlComing;
 import game.levelmenu.levels.LvlTapemIcon;
+import game.levelmenu.levels.LvlShakeIt;
 import game.levelmenu.utils.PageIcon;
 import nme.events.Event;
 import engine.objects.Button;
@@ -45,13 +46,13 @@ class LevelSelection extends BaseScene
 		var count : Int = 0;
 		for (i in levelsTable) {
 			addChild(i.objectClip);
-			resizeLevelTable(i, count);
+			resizeLevelTable(levelsTable.get("Level" + Std.string(count + 1)), count);
 			count++;
 		}
 		count = 0;
 		for (i in pageIcons) {
 			addChild(i.objectClip);
-			resizePageIcon(i, count);
+			resizePageIcon(pageIcons.get("Page" + Std.string(count + 1)), count);
 			count++;
 		}
 		
@@ -61,11 +62,12 @@ class LevelSelection extends BaseScene
 		resizeBackground();
 		var count : Int = 0;
 		for (i in levelsTable) {
-			resizeLevelTable(i, count);
+			resizeLevelTable(levelsTable.get("Level" + Std.string(count + 1)), count);
 			count++;
 		}
+		count = 0;
 		for (i in pageIcons) {
-			resizePageIcon(i, count);
+			resizePageIcon(pageIcons.get("Page" + Std.string(count + 1)), count);
 			count++;
 		}
 	}
@@ -88,7 +90,7 @@ class LevelSelection extends BaseScene
 		pageIcons.set("Page2", new PageIcon());
 		pageIcons.set("Page3", new PageIcon());
 		levelsTable.set("Level1", new LvlTapemIcon());
-		levelsTable.set("Level2", new LvlComing());
+		levelsTable.set("Level2", new LvlShakeIt());
 		levelsTable.set("Level3", new LvlComing());
 		levelsTable.set("Level4", new LvlComing());
 		levelsTable.set("Level5", new LvlComing());

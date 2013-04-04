@@ -105,7 +105,7 @@ class CountDownTimer extends TextObject, implements ITickable
 	 private function updateTimer(?digit: Int = 3) : Void {
 		 //TODO: FPS is 30, therefore the time difference is 1000/30.
 		 //Possible Answer: Sometime the Stage will freaze but the timer won't.
-		 timeCount -= 1000/29; // I don't know why, when set 1000/30, there always some count left when it complete.
+		 timeCount -= 1000/30; // I don't know why, when set 1000/30, there always some count left when it complete.
 		
 		 //if total time greater than 10000, the timer need a different display.
 		 if(timeCount >= 10000){
