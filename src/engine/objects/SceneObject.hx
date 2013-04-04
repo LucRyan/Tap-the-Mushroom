@@ -23,6 +23,11 @@ class SceneObject extends Sprite
 	public var objectClip : MovieClip; // The Sprite's MovieClip
 	
 	/**
+	 * Destructor
+	 */
+	public function delete() : Void{}
+	
+	/**
 	 * Load MovieClip 
 	 *
 	 * @param	movieClipPath is the path contains movieclip

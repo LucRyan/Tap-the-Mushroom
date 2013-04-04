@@ -9,7 +9,7 @@ import nme.display.Sprite;
  * @author Yang Wang
  */
 
-class ButtonAdder 
+class ButtonHelper 
 {
 
 	var menuButton : MenuButton; // The Button link to menu.

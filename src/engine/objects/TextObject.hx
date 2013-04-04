@@ -25,7 +25,6 @@ class TextObject extends SceneObject
 	{
 		super();
 		loadMovieClip((background == null)? "TaptheMushroom:tm.TransparentBg" : background);
-		//loadMovieClip((background == null)? "TaptheMushroom:tm.CountDownTimer" : background);
 		initialize(font);
 	}
 	

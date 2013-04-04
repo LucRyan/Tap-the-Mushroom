@@ -1,7 +1,8 @@
 package game.tap;
 
 import format.display.MovieClip;
-import game.common.utils.ButtonAdder;
+import game.common.utils.ButtonHelper;
+import game.common.utils.TimerHelper;
 import haxe.Log;
 
 import nme.display.Bitmap;
@@ -42,8 +43,8 @@ class TapemALvl extends BaseScene
 	var mushPlanter : MushroomPlanter; // The planter instance.
 	var mushController : MushroomController; //
 	var shaker : ScreenShaker; //
-	var buttonAdder : ButtonAdder;
-	var countDownTimer : CountDownTimer; // Count Down Timer's background.
+	var buttonHelper : ButtonHelper;
+	var timerHelper : TimerHelper; // Count Down Timer's background.
 	var tempAnimationIndex : Int; // The index need by animation.
 	
 	//--------- Animation Variables ----------//
@@ -65,8 +66,7 @@ class TapemALvl extends BaseScene
 	
 	override public function delete() {
 		super.delete();
-		countDownTimer.stopCount();
-		buttonAdder.delete();
+		buttonHelper.delete();
 		super.removeChild(background);
 		this.removeEventListener(Event.RESIZE, stage_onResize, true);
 		this.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, false);
@@ -81,7 +81,7 @@ class TapemALvl extends BaseScene
 	private function stopAnimationLoop(?event: Event) {
 		updateAnimationFlag = false;
 		removeEventListener(MouseEvent.CLICK, stopAnimationLoop, false);
-		countDownTimer.startCount();
+		timerHelper.getCountTimer().startCount();
 	}
 	
 	/**
@@ -101,12 +101,12 @@ class TapemALvl extends BaseScene
 	}
 	
 	/**
-	 * 
+	 * Call this function when time up.
 	 * @param	event
 	 */
-	private function finished(event: TimerEvent) : Void  {
+	private function finished() : Void  {
 		var mushroom : Mushroom;
-		ScoreSystem.SCORE_SYSTEM.getInstance().checkScoreTEM(mushroomPool);
+		ScoreSystem.getInstance().checkScoreTEM(mushroomPool);
 		for (mushroom in mushroomPool) {
 			mushroom.objectClip.buttonMode = false;
 			mushroom.objectClip.removeEventListener(MouseEvent.CLICK, mushroom.mouseClick, false);
@@ -116,14 +116,6 @@ class TapemALvl extends BaseScene
 		MTimer.TIMER.getInstance().wait(1000, goToScoreBoard);
 	}
 	// =========================== Animation Part Ends ================================//
-	
-	/**
-	 * Update function
-	 */
-	override private function update(?deltaTime : Float) : Void {
-		if(updateAnimationFlag)
-			updateAnimation();
-	}
 	
 	/**
 	 * Page transfer
@@ -152,46 +144,53 @@ class TapemALvl extends BaseScene
 		
 		//Handle resize
 		stage.addEventListener(Event.RESIZE, stage_onResize);
-		//Handle Finished
-		countDownTimer.setCompleteEvent(finished);
+
 	}
 	
 	private function initialObjects() :Void {
 		//Initialize the instances.
-		countDownTimer = new CountDownTimer();
+		timerHelper = new TimerHelper(5000);
 		mushPlanter = new MushroomPlanter();
 		mushroomPool = new Array<Mushroom>();
 		mushController = new MushroomController();
 		shaker = new ScreenShaker();
-		buttonAdder = new ButtonAdder();
+		buttonHelper = new ButtonHelper();
 		//Load all the Object.
 		loadBackground("img/background.jpg");
 		mushroomPool = mushPlanter.plantMushrooms();
 	}
 	
-	// TODO: THIS FUNCTION NEED REFACTOR!!!! THINK ABOUT OCP, TRY TO USE
-	private function resizecountDownTimer() : Void {
-		countDownTimer.resizeMovieClip(countDownTimer.objectClip, 524, 174, 7, 1.0 / 10.0, 1.0 / 12.0);
-		countDownTimer.resizeText(countDownTimer.getTextContent());
-	}
-	
-	// TODO: THIS FUNCTION NEED REFACTOR!!!!
 	private function addBasicObjects() : Void {
 		addChild(background);
-		addChild(countDownTimer.objectClip);
-		addChild(countDownTimer.displayText);
-		buttonAdder.addButtons(this);
+		timerHelper.addTimerTo(this);
+		buttonHelper.addButtons(this);
 	}
 	
 	override private function resize () {
 		super.resize();
-		resizecountDownTimer();
-		buttonAdder.resizeButtons();
+		buttonHelper.resizeButtons();
+		timerHelper.resizeTimer();
 		for (i in 0 ... 40) {
 			var tempMush : Mushroom = mushroomPool[i];
 			mushPlanter.resizeMushroom(tempMush, i, 5, 8, 2.2, 4);
 		}
 	}
 	
+	
+	//--------------------------- Update Function --------------------------------//
+	/**
+	 * Update function
+	 */
+	override private function update(?deltaTime : Float) : Void {
+		timerHelper.getCountTimer().tick(); // Timer update
+		//
+		if(updateAnimationFlag){
+			updateAnimation();
+		}
+		if (timerHelper.getCountTimer().isComplete()) {
+			finished();
+			timerHelper.getCountTimer().resetComplete();
+		}
+	}
 	
 }

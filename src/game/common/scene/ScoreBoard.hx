@@ -1,7 +1,7 @@
 package game.common.scene;
 import engine.objects.TextObject;
 import engine.scene.BaseScene;
-import game.common.utils.ButtonAdder;
+import game.common.utils.ButtonHelper;
 import nme.events.Event;
 import engine.objects.SceneObject;
 import engine.utils.SafeRemover;
@@ -17,7 +17,7 @@ import engine.utils.MTimer;
 class ScoreBoard extends BaseScene
 {
 
-	var buttonAdder : ButtonAdder; //
+	var buttonHelper : ButtonHelper; //
 	var currentScoreText : TextObject; //
 	var currentScrVl : TextObject; //
 	
@@ -41,7 +41,7 @@ class ScoreBoard extends BaseScene
 	}
 	
 	override private function construct () {
-		buttonAdder = new ButtonAdder();
+		buttonHelper = new ButtonHelper();
 		currentScoreText = new TextObject("fonts/ScoreFont.ttf");
 		bestScoreText = new TextObject("fonts/ScoreFont.ttf");
 		levelCompleteInfoText = new TextObject("fonts/ScoreFont.ttf");
@@ -68,7 +68,7 @@ class ScoreBoard extends BaseScene
 		levelCompleteInfoText.addObjectToStage(this);
 		currentScrVl.addObjectToStage(this);
 		bestScrVl.addObjectToStage(this);
-		buttonAdder.addButtons(this);
+		buttonHelper.addButtons(this);
 		for (i in 0 ... 5 ) {
 			starsBest[i] = new Stars();
 			starsCurrent[i] = new Stars("fonts/ScoreFont.ttf");
@@ -80,7 +80,7 @@ class ScoreBoard extends BaseScene
 		}
 		
 		//------------------------------ Get Score ----------------------------------
-		scoreTEM = ScoreSystem.SCORE_SYSTEM.getInstance().getScore();
+		scoreTEM = ScoreSystem.getInstance().getScore();
 		starsAnimation(scoreTEM, 15, 5);
 	}
 	
@@ -100,7 +100,7 @@ class ScoreBoard extends BaseScene
 		currentScrVl.resizeText(Std.string(scoreTEM), 0xCC9900);
 		//------------------------------------
 		
-		buttonAdder.resizeButtons();
+		buttonHelper.resizeButtons();
 		resizeBackground();
 		for (i in 0 ... 5 ) {
 			#if flash

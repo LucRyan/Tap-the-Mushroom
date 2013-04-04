@@ -30,12 +30,9 @@ class PhysicsObject extends SceneObject, implements ITickable
 	}
 	
 	
-	var lastUpdateStamp : Float = 0;
+
 	public function tick(?deltaTime : Float = 1.0) {
-		if ((1000 / 30) * deltaTime <= Lib.getTimer() - lastUpdateStamp) {
-			lastUpdateStamp = Lib.getTimer();
-			updateTexture();
-		}
+		updateTexture();
 	}
 	
 	/**
@@ -76,10 +73,8 @@ class PhysicsObject extends SceneObject, implements ITickable
 		//Set Drawable
 		body = world.createBody (bodyDefinition);
 		body.createFixture(fixtureDefinition);
-		
-		//Add drawables to stage
-		objectClip.gotoAndStop(2);
-		stage.addChildAt(objectClip, 2);
+
+		stage.addChildAt(objectClip, stage.numChildren);
 	}
 	
 	public function resizeBody(originWidth : Int, originHeight : Int, sizeLvl : Float) {

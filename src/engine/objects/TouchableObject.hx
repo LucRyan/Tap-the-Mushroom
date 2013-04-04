@@ -16,7 +16,8 @@ class TouchableObject extends SceneObject
 		super();
 	}
 
-	public function delete() {
+	override public function delete() {
+		super.delete();
 		objectClip.buttonMode = false;
 		
 		objectClip.removeEventListener(MouseEvent.CLICK, mouseClick, false);

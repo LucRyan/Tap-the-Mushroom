@@ -10,13 +10,13 @@ class ScoreSystem
 {
 
 	// Use for singleton.
-	public static var SCORE_SYSTEM = new ScoreSystem();
+	private static var SCORE_SYSTEM = new ScoreSystem();
 	
 	/**
 	 * Singleton function
 	 * @return
 	 */
-	public function getInstance() : ScoreSystem{
+	public static function getInstance() : ScoreSystem{
 		if ( SCORE_SYSTEM == null) {
 			SCORE_SYSTEM = new ScoreSystem();
 		}
@@ -35,6 +35,10 @@ class ScoreSystem
 		for (i in 0 ... 40) {
 			if (!mushroomPool[i].objectClip.visible) scoreCount += 1;
 		}
+	}
+	
+	public function checkScoreSKT(score : Int) {
+		scoreCount = score;
 	}
 	
 	public function getScore() : Int {

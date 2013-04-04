@@ -1,6 +1,6 @@
 package game.levelmenu;
 import engine.scene.BaseScene;
-import game.common.utils.ButtonAdder;
+import game.common.utils.ButtonHelper;
 import game.levelmenu.levels.LvlComing;
 import game.levelmenu.levels.LvlTapemIcon;
 import game.levelmenu.utils.PageIcon;
@@ -15,7 +15,7 @@ import nme.Lib;
  */
 class LevelSelection extends BaseScene
 {	
-	var buttonAdder : ButtonAdder;
+	var buttonHelper : ButtonHelper;
 	var levelsTable : Hash<Button>;
 	var pageIcons : Hash<SceneObject>;
 	
@@ -29,7 +29,7 @@ class LevelSelection extends BaseScene
 	 * Override the construct which will load the stage when the level start.
 	 */
 	override private function construct () {
-		buttonAdder = new ButtonAdder();
+		buttonHelper = new ButtonHelper();
 		initialLevelsTable();
 		loadBackground("img/background.jpg");
 		resize ();

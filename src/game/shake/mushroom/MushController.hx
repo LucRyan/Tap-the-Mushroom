@@ -23,6 +23,7 @@ class MushController implements ITickable
 	var accl : Accelerometer;
 	var controller : B2ConstantAccelController;
 	var acceleration : B2Vec2;
+	var screenWidth : Int;
 
 	public function new(mushroom : Mushroom) 
 	{	
@@ -31,7 +32,7 @@ class MushController implements ITickable
 	}
 	
 	public function tick(?deltaTime : Float) {
-		actor.tick(0.5);
+		actor.tick();
 	}
 	
 	public function delete() {
@@ -44,17 +45,19 @@ class MushController implements ITickable
 		return acceleration;
 	}
 	private function onAccUpdate(event : AccelerometerEvent): Void {
-		acceleration.set(event.accelerationY * 15, event.accelerationX * 15);
+		var scale : Float = screenWidth / 25;
+		acceleration.set(event.accelerationY * scale, event.accelerationX * scale);
 	}
 	
 	private function initialAccelerometer() : Void{
 		if(nme.sensors.Accelerometer.isSupported) {
 			accl = new Accelerometer();
 			controller = new B2ConstantAccelController();
-			actor.getBody().setSleepingAllowed(false);
 			acceleration = new B2Vec2();
-			accl.setRequestedUpdateInterval(0);
+			
+			actor.getBody().setSleepingAllowed(false);
 			accl.addEventListener(AccelerometerEvent.UPDATE, onAccUpdate);
+			screenWidth = Lib.current.stage.stageWidth;
 		}
 	}
 	

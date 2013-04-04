@@ -9,6 +9,7 @@ import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
 import game.tap.TapemALvl;
+import engine.sound.SoundSystem;
 
 
 
@@ -34,6 +35,9 @@ class Main extends Sprite
 		// entry point
 		LevelManager.getInstance().changePages(ShakeIt);
 		LevelManager.getInstance().isFirstTime = false;
+		
+		//TODO: Initialize the Soundsystem
+		SoundSystem.getInstance().playSoundFx("PokeMushroom", 1);
 		
 	}
 	

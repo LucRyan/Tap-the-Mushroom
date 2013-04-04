@@ -8,6 +8,7 @@ import nme.text.TextFieldAutoSize;
 import nme.Assets;
 import nme.utils.Timer;
 import nme.events.TimerEvent;
+import nme.Lib;
 
 /**
  * ...
@@ -16,22 +17,42 @@ import nme.events.TimerEvent;
 
 class CountDownTimer extends TextObject, implements ITickable
 {
-	var timeCount : Float;
-	inline static var totalTime = 5000;
 	var countTimer : Timer;
 	var textContent : String;
-	public var runningFlag : Bool = false;
+	//
+	var timeCount : Float;
+	var totalTime : Int = 5000;
+	var startStamp : Int;
+	var runningFlag : Bool = false;
+	var completeFlag : Bool = false;
 	
-	public function new() 
+	public function new(?totalTime : Int = 5000) 
 	{
+		this.totalTime = totalTime;
 		super();
 		loadMovieClip("TaptheMushroom:tm.CountDownTimer");
 		objectClip.gotoAndStop(2);
 	}
 	
+	override public function delete() : Void 
+	{
+		super.delete();
+		stopCount();
+	}
+	
 	public function tick(?deltaTime : Float) 
 	{
-		updateTimer();
+		if (runningFlag)
+		{
+			if (totalTime > Lib.getTimer() - startStamp ){
+				updateTimer();
+			}else {
+				completeFlag = true;
+				runningFlag = false;
+				timeCount = 0;
+				displayText.text = "0.000";
+			}
+		}
 	}
 	 
 	override private function initialize(?font : String) {
@@ -39,33 +60,77 @@ class CountDownTimer extends TextObject, implements ITickable
 		 customFont = Assets.getFont("fonts/SceneFonts.ttf");
 		 fontFmt = new TextFormat(customFont.fontName);
 		 timeCount = totalTime;
-		 countTimer = new Timer(20, Std.int(totalTime/20)); //Less than 20 millionseconds are not allowed.
-		 countTimer.addEventListener(TimerEvent.TIMER, updateTimer, false, 0, false);
-		 textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 4);
-	 }
-	 
-	 public function startCount() {
-		 if(!countTimer.running){
-			countTimer.start();
+		 if(totalTime >= 10000){
+			textContent = Std.string(timeCount).substr(0, 2) + "." + Std.string(timeCount).substr(2, 2);
+		 }else {
+			textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 3);
 		 }
 	 }
 	 
-	 public function stopCount() {
-		 countTimer.stop();
+	 /**
+	  * Call this function to start count.
+	  */
+	 public function startCount() {
+		 if (!runningFlag) {
+			 runningFlag = true;
+			 completeFlag = false;
+			 startStamp = Lib.getTimer();
+		 }
 	 }
 	 
-	 public function setCompleteEvent(func : Dynamic) {
-		 countTimer.addEventListener(TimerEvent.TIMER_COMPLETE, func, false, 0, false);
+	 /**
+	  * Determine the timer is completed.
+	  * @return the flag use for update complete function.
+	  */
+	 public function isComplete() : Bool{
+		 return completeFlag;
+	 }
+	 
+	 /**
+	  * After complete, we need set the completeFlag to false
+	  */
+	 public function resetComplete() {
+		 completeFlag = false;
+	 }
+	 
+	 public function stopCount() {
+		 completeFlag = false;
+		 runningFlag = false;
 	 }
 	 
 	 public function getTextContent() : String {
 		 return textContent;
 	 }
 	 
-	 private function updateTimer(?event: TimerEvent) : Void {
-		 timeCount -= 20;
-		 textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 4);
-		 displayText.text = textContent;
+	 private function updateTimer(?digit: Int = 3) : Void {
+		 //TODO: FPS is 30, therefore the time difference is 1000/30.
+		 //Possible Answer: Sometime the Stage will freaze but the timer won't.
+		 timeCount -= 1000/29; // I don't know why, when set 1000/30, there always some count left when it complete.
+		
+		 //if total time greater than 10000, the timer need a different display.
+		 if(timeCount >= 10000){
+			textContent = Std.string(timeCount).substr(0, 2) + "." + Std.string(timeCount).substr(2, 2);
+		 }else {
+			textContent = Std.string(timeCount).substr(0, 1) + "." + Std.string(timeCount).substr(1, 3);
+		 }
+		 
+		 //Handler the situation when timecount less than 1000.
+		 if(timeCount > 100 && timeCount <= 1000){
+			textContent = "0." + Std.string(timeCount).substr(0, 3);
+		 }else if (timeCount > 10 && timeCount <= 100) {
+			textContent = "0.0" + Std.string(timeCount).substr(0, 3);
+		 }else if (timeCount > 0 && timeCount <= 10) {
+			 textContent = "0.00" + Std.string(timeCount).substr(0, 2);
+		 }
+		 
+		 //At the end, may have some bugs.
+		 if (timeCount <= 0) {
+			 timeCount = 0;
+			 displayText.text = "0.000";
+		 }else {
+			 displayText.text = textContent;
+		 }
+		 
 	 }
 	 
 	 
