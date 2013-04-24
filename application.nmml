@@ -2,10 +2,13 @@
 <project>
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	<haxedef name="fdb" if="flash"></haxedef>
-	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="Tap the Mushroom" package="com.soybean.TaptheMushroom" version="1.0.0" company="Yang Wang" />
+	<meta title="Tap the Mushroom" package="com.soybean.TaptheMushroom" version="1.0.0" company="Soybean" />
 	
+	
+	<!-- Android -->
+	<templatePaths path = "MyAndroidManifest.xml" rename="bin/android/bin/AndroidManifest.xml" />
+	 
 	<!-- output -->
 	<app main="Main" file="TaptheMushroom" path="bin" />
 	
@@ -36,5 +39,10 @@
 	<!-- optimize JS output -->
 	<haxeflag name="--dead-code-elimination" if="html5" />
 	<haxeflag name="--js-modern" if="html5" />
+	
+	<!-- Certificate -->
+	<certificate path="key\tap.keystore" password="ks89525"  alias="tap" alias-password="ks89525" />
+	
+
 	
 </project>
