@@ -11,13 +11,16 @@ import nme.events.EventDispatcher;
  * ...
  * @author Yang Wang
  */
-class WallContactListener extends B2ContactListener
+class ShakeITContactListener extends B2ContactListener
 {
 
 	public static inline var BOTTOM_START_CONTACT : String = "bottomStartContact";
     public static inline var UPPER_START_CONTACT : String = "upperStartContact";
 	public static inline var LEFT_START_CONTACT : String = "leftStartContact";
     public static inline var RIGHT_START_CONTACT : String = "rightStartContact";
+	public static inline var TIME_START_CONTACT : String = "timeStartContact";
+    public static inline var SPEEDUP_START_CONTACT : String = "speedUpStartContact";
+	public static inline var SPEEDDN_START_CONTACT : String = "speedDnStartContact";
 	
     public var eventDispatcher:EventDispatcher;
 		
@@ -55,6 +58,24 @@ class WallContactListener extends B2ContactListener
 			contact.getFixtureB().getBody().getUserData() == BodyType.GROUND_RIGHT &&
 			contact.getFixtureA().getBody().getUserData() == BodyType.MUSHROOM ) {
 				eventDispatcher.dispatchEvent( new Event(RIGHT_START_CONTACT));
+			}
+		if (contact.getFixtureA().getBody().getUserData() == BodyType.SPEED_DOWN &&
+			contact.getFixtureB().getBody().getUserData() == BodyType.MUSHROOM ||
+			contact.getFixtureB().getBody().getUserData() == BodyType.SPEED_DOWN &&
+			contact.getFixtureA().getBody().getUserData() == BodyType.MUSHROOM ) {
+				eventDispatcher.dispatchEvent( new Event(SPEEDDN_START_CONTACT));
+			}
+		if (contact.getFixtureA().getBody().getUserData() == BodyType.SPEED_UP &&
+			contact.getFixtureB().getBody().getUserData() == BodyType.MUSHROOM ||
+			contact.getFixtureB().getBody().getUserData() == BodyType.SPEED_UP &&
+			contact.getFixtureA().getBody().getUserData() == BodyType.MUSHROOM ) {
+				eventDispatcher.dispatchEvent( new Event(SPEEDUP_START_CONTACT));
+			}
+		if (contact.getFixtureA().getBody().getUserData() == BodyType.TIME_ADD &&
+			contact.getFixtureB().getBody().getUserData() == BodyType.MUSHROOM ||
+			contact.getFixtureB().getBody().getUserData() == BodyType.TIME_ADD &&
+			contact.getFixtureA().getBody().getUserData() == BodyType.MUSHROOM ) {
+				eventDispatcher.dispatchEvent( new Event(TIME_START_CONTACT));
 			}
 	}
 	

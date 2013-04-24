@@ -5,6 +5,7 @@ import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.Assets;
 import nme.Lib;
+import engine.utils.SafeRemover;
 
 /**
  * The Basic object with Bitmap or MovieClip
@@ -25,7 +26,9 @@ class SceneObject extends Sprite
 	/**
 	 * Destructor
 	 */
-	public function delete() : Void{}
+	public function delete() : Void {
+		SafeRemover.safeRemove(this);
+	}
 	
 	/**
 	 * Load MovieClip 

@@ -20,7 +20,7 @@ import nme.Lib;
 class PhysicsObject extends SceneObject, implements ITickable
 {
 
-	var body : B2Body;
+	public var body : B2Body;
 	var fixtureDefinition : B2FixtureDef;
 	var bodyDefinition : B2BodyDef;
 	

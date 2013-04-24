@@ -2,11 +2,12 @@ package game.shake;
 import engine.objects.SceneObject;
 import engine.physics.PhysicsObject;
 import engine.physics.PhysicsScene;
+import engine.projectile.ProjectileEmitter;
 import format.display.MovieClip;
 import game.common.button.MenuButton;
 import game.common.utils.TimerHelper;
 import game.shake.mushroom.Mushroom;
-import game.shake.utils.WallContactListener;
+import game.shake.utils.ShakeITContactListener;
 import game.shake.utils.WallStateGenerator;
 import nme.display.Sprite;
 import box2D.collision.shapes.B2CircleShape;
@@ -45,6 +46,7 @@ class ShakeItDnLvl extends PhysicsScene
 	var wall : Hash<PhysicsObject>;
 	var controller : MushController;
 	var wlStateGen : WallStateGenerator;
+	var projectileEmt : ProjectileEmitter;
 	
 	public function new() 
 	{
@@ -56,6 +58,7 @@ class ShakeItDnLvl extends PhysicsScene
 		super.delete();
 		buttonHelper.delete();
 		controller.delete();
+		projectileEmt.delete();
 		this.removeEventListener(Event.ENTER_FRAME, this_onEnterFrame, true);
 		this.removeEventListener(Event.RESIZE, stage_onResize, true);
 	}
@@ -113,6 +116,7 @@ class ShakeItDnLvl extends PhysicsScene
 		buttonHelper = new ButtonHelper();
 		timerHelper = new TimerHelper(20000);
 		wlStateGen = new WallStateGenerator();
+		projectileEmt = new ProjectileEmitter(this, world);
 		loadBackground("img/background.jpg");
 		mushroom = new Mushroom(); 
 		wall = new Hash<PhysicsObject>();
@@ -163,17 +167,20 @@ class ShakeItDnLvl extends PhysicsScene
 	}
 	//
 	private function setContactListener() {
-		var contactListener = new WallContactListener();
-		contactListener.eventDispatcher.addEventListener(WallContactListener.BOTTOM_START_CONTACT, onBottomStartContact);
-		contactListener.eventDispatcher.addEventListener(WallContactListener.UPPER_START_CONTACT, onUpperStartContact);
-		contactListener.eventDispatcher.addEventListener(WallContactListener.LEFT_START_CONTACT, onLeftStartContact);
-		contactListener.eventDispatcher.addEventListener(WallContactListener.RIGHT_START_CONTACT, onRightStartContact);
+		var contactListener = new ShakeITContactListener();
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.BOTTOM_START_CONTACT, onBottomStartContact);
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.UPPER_START_CONTACT, onUpperStartContact);
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.LEFT_START_CONTACT, onLeftStartContact);
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.RIGHT_START_CONTACT, onRightStartContact);
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.TIME_START_CONTACT, onTimeStartContact);
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.SPEEDDN_START_CONTACT, onSpeedDnStartContact);
+		contactListener.eventDispatcher.addEventListener(ShakeITContactListener.SPEEDUP_START_CONTACT, onSpeedUpStartContact);
 		world.setContactListener(contactListener);
 	}
 	
 	//------------------------------------------------ Update Function ----------------------------------------------------//
 	override private function update (?deltaTime : Float) : Void {
-		//World Update
+		//----------World Update--------------------------
 		world.step (1 / 30, 10, 10);
 		#if android
 			world.setGravity(controller.getAcceleration());
@@ -181,12 +188,12 @@ class ShakeItDnLvl extends PhysicsScene
 		world.clearForces ();
 		//world.drawDebugData ();
 		
-		controller.tick();
+		controller.tick(); // Update gravity.
 		for (i in wall) {
-			i.tick();
+			i.tick(); // keep awake.
 		};
 		
-		//Gameplay Update
+		//---------------Gameplay Update------------------
 		for (name in wall.keys()) {
 			if (wlStateGen.isActive(name)) {
 				wall.get(name).objectClip.visible = true;
@@ -197,8 +204,11 @@ class ShakeItDnLvl extends PhysicsScene
 			finished();
 			timerHelper.getCountTimer().resetComplete();
 		}
-		//
-		
+		var emitPositionX : Float = (Math.random() * 18 / 20 * Lib.current.stage.stageWidth + 1 / 20 * Lib.current.stage.stageWidth);
+		projectileEmt.setParameters(2 * 1000, 1 * 100, 
+									new B2Vec2(0, 10), new B2Vec2( emitPositionX * PhysicsScene.PHYSICS_SCALE, 0 * PhysicsScene.PHYSICS_SCALE), 0, 
+									BodyType.TIME_ADD, "TaptheMushroom:tm.RedMushroomJump");
+		projectileEmt.tick();				
 	}
 	
 	//------------------------------------------------ Event Handlers ----------------------------------------------------//
@@ -207,6 +217,7 @@ class ShakeItDnLvl extends PhysicsScene
 		buttonHelper.resizeButtons();
 		timerHelper.resizeTimer();
 	}
+	//-----------------------Walls------------------------------------------------
 	//
 	private function onBottomStartContact( event : Event) : Void { hitWall("Bottom");}
 	//
@@ -216,7 +227,14 @@ class ShakeItDnLvl extends PhysicsScene
 	//
 	private function onRightStartContact( event : Event) : Void { hitWall("Right"); }
 	
-	
+	//-----------------------PowerUps------------------------------------------------
+	//
+	private function onTimeStartContact( event : Event) : Void { }
+	//
+	private function onSpeedUpStartContact( event : Event) : Void { }
+	//
+	private function onSpeedDnStartContact( event : Event) : Void {  }
+
 	
 	
 }
