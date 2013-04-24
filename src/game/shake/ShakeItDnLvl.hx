@@ -95,6 +95,28 @@ class ShakeItDnLvl extends PhysicsScene
 		}
 	}
 	
+	private function genPowerUps() : Void {
+		var emitPositionX : Float = (Math.random() * 18 / 20 * Lib.current.stage.stageWidth + 1 / 20 * Lib.current.stage.stageWidth);
+		var choice : Int = Std.int(Math.random() * 3);
+		var bodyType : String = new String("NULL");
+		var texturePath : String = new String("NULL");
+		switch(choice) {
+			case 0 :
+				bodyType = new String(BodyType.TIME_ADD);
+				texturePath = "TaptheMushroom:tm.RedMushroomJump";
+			case 1 :
+				bodyType = new String(BodyType.SPEED_DOWN);
+				texturePath = "TaptheMushroom:tm.YellowMushroomJump";
+			case 2 :
+				bodyType = new String(BodyType.SPEED_UP);
+				texturePath = "TaptheMushroom:tm.BlueMushroomJump";
+		}
+		projectileEmt.setParameters(6 * 1000, 5 * 1000, 
+									new B2Vec2(0, 6), new B2Vec2( emitPositionX * PhysicsScene.PHYSICS_SCALE, 0 * PhysicsScene.PHYSICS_SCALE), 0, 
+									bodyType, texturePath);
+		projectileEmt.tick();				
+	}
+	
 	private function finished() : Void  {
 		ScoreSystem.getInstance().checkScoreSKT(hitScore);
 		var shaker : ScreenShaker = new ScreenShaker();
@@ -204,11 +226,8 @@ class ShakeItDnLvl extends PhysicsScene
 			finished();
 			timerHelper.getCountTimer().resetComplete();
 		}
-		var emitPositionX : Float = (Math.random() * 18 / 20 * Lib.current.stage.stageWidth + 1 / 20 * Lib.current.stage.stageWidth);
-		projectileEmt.setParameters(2 * 1000, 1 * 100, 
-									new B2Vec2(0, 10), new B2Vec2( emitPositionX * PhysicsScene.PHYSICS_SCALE, 0 * PhysicsScene.PHYSICS_SCALE), 0, 
-									BodyType.TIME_ADD, "TaptheMushroom:tm.RedMushroomJump");
-		projectileEmt.tick();				
+		//Projectiles -- Powerups
+		genPowerUps();
 	}
 	
 	//------------------------------------------------ Event Handlers ----------------------------------------------------//

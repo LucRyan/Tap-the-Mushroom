@@ -101,7 +101,7 @@ class ProjectileEmitter implements ITickable
 		p.tick(); // update the texture.
 	}
 	
-	private function destoryProjectile(p : Projectile) {
+	public function destoryProjectile(p : Projectile) {
 		stage.removeChild(p.objectClip);
 		world.destroyBody(p.body);
 		pjList.remove(p);
