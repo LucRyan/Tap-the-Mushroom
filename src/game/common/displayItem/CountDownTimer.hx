@@ -44,7 +44,7 @@ class CountDownTimer extends TextObject, implements ITickable
 	{
 		if (runningFlag)
 		{
-			if (totalTime > Lib.getTimer() - startStamp ){
+			if (timeCount > 0 ){
 				updateTimer();
 			}else {
 				completeFlag = true;
@@ -100,6 +100,10 @@ class CountDownTimer extends TextObject, implements ITickable
 	 
 	 public function getTextContent() : String {
 		 return textContent;
+	 }
+	 
+	 public function addTime( amount : Float) {
+		 timeCount += amount;
 	 }
 	 
 	 private function updateTimer(?digit: Int = 3) : Void {

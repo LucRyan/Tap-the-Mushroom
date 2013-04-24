@@ -94,7 +94,9 @@ class ShakeItDnLvl extends PhysicsScene
 			wlStateGen.genWallState();
 		}
 	}
-	
+	/**
+	 * Generate the powerups
+	 */
 	private function genPowerUps() : Void {
 		var emitPositionX : Float = (Math.random() * 18 / 20 * Lib.current.stage.stageWidth + 1 / 20 * Lib.current.stage.stageWidth);
 		var choice : Int = Std.int(Math.random() * 3);
@@ -103,18 +105,41 @@ class ShakeItDnLvl extends PhysicsScene
 		switch(choice) {
 			case 0 :
 				bodyType = new String(BodyType.TIME_ADD);
-				texturePath = "TaptheMushroom:tm.RedMushroomJump";
+				texturePath = "TaptheMushroom:tm.TimeAdd";
 			case 1 :
 				bodyType = new String(BodyType.SPEED_DOWN);
-				texturePath = "TaptheMushroom:tm.YellowMushroomJump";
+				texturePath = "TaptheMushroom:tm.SpeedDown";
 			case 2 :
 				bodyType = new String(BodyType.SPEED_UP);
-				texturePath = "TaptheMushroom:tm.BlueMushroomJump";
+				texturePath = "TaptheMushroom:tm.SpeedUp";
 		}
-		projectileEmt.setParameters(6 * 1000, 5 * 1000, 
-									new B2Vec2(0, 6), new B2Vec2( emitPositionX * PhysicsScene.PHYSICS_SCALE, 0 * PhysicsScene.PHYSICS_SCALE), 0, 
+		projectileEmt.setParameters(5 * 1000, 5 * 1000, 
+									new B2Vec2(0, Lib.current.stage.stageHeight / 300 * 5), 
+									new B2Vec2( emitPositionX * PhysicsScene.PHYSICS_SCALE, 
+									0 * PhysicsScene.PHYSICS_SCALE), 0, 
 									bodyType, texturePath);
 		projectileEmt.tick();				
+	}
+	
+	/**
+	 * Handle eat timeAdd PowerUps
+	 */
+	private function timeAdd() : Void {
+		projectileEmt.destoryAll();
+		SoundSystem.getInstance().playSoundFx("Stars", 1);
+		timerHelper.getCountTimer().addTime(5000);
+	}
+	
+	private function speedUp() : Void {
+		projectileEmt.destoryAll();
+		SoundSystem.getInstance().playSoundFx("Stars", 1);
+		controller.changeAccl(18);
+	}
+	
+	private function speedDn() : Void {
+		projectileEmt.destoryAll();
+		SoundSystem.getInstance().playSoundFx("SpeedDown", 1);
+		controller.changeAccl(35);
 	}
 	
 	private function finished() : Void  {
@@ -248,11 +273,11 @@ class ShakeItDnLvl extends PhysicsScene
 	
 	//-----------------------PowerUps------------------------------------------------
 	//
-	private function onTimeStartContact( event : Event) : Void { }
+	private function onTimeStartContact( event : Event) : Void { timeAdd(); }
 	//
-	private function onSpeedUpStartContact( event : Event) : Void { }
+	private function onSpeedUpStartContact( event : Event) : Void { speedUp(); }
 	//
-	private function onSpeedDnStartContact( event : Event) : Void {  }
+	private function onSpeedDnStartContact( event : Event) : Void { speedDn(); }
 
 	
 	

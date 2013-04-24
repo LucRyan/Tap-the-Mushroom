@@ -50,6 +50,7 @@ class SoundSystem
 		loadSound("MushroomJump", "mp3");
 		loadSound("PokeMushroom", "wav");
 		loadSound("Button", "wav");
+		loadSound("SpeedDown", "wav");
 	}
 	
 	private function loadSound( name : String, format : String) : Void {

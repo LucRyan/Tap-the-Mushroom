@@ -24,11 +24,13 @@ class MushController implements ITickable
 	var controller : B2ConstantAccelController;
 	var acceleration : B2Vec2;
 	var screenWidth : Int;
-
+	var scale : Float;
+	
 	public function new(mushroom : Mushroom) 
 	{	
 		actor = mushroom;
 		initialAccelerometer();
+		scale = Lib.current.stage.stageWidth / 25;
 	}
 	
 	public function tick(?deltaTime : Float) {
@@ -44,8 +46,12 @@ class MushController implements ITickable
 	public function getAcceleration() : B2Vec2 {
 		return acceleration;
 	}
+	
+	public function changeAccl( amount: Int = 25) {
+		scale = screenWidth / amount;
+	}
+	
 	private function onAccUpdate(event : AccelerometerEvent): Void {
-		var scale : Float = screenWidth / 25;
 		acceleration.set(event.accelerationY * scale, event.accelerationX * scale);
 	}
 	

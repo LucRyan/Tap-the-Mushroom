@@ -81,9 +81,10 @@ class ProjectileEmitter implements ITickable
 	private function emitProjectile() : Void {
 		// Create and set projectile
 		projectile = new Projectile();
-		projectile.setParameters(188, 155, 2, this.texturePath); // Set drawable and body width and height
+		projectile.setParameters(512, 512, 2, this.texturePath); // Set drawable and body width and height
 		projectile.body = world.createBody(projectile.getBodyDef()); // create the body to world
 		projectile.body.createFixture(projectile.getFixDef()); // create fixture
+		projectile.setFixtureDef(0, 0, 0);
 		projectile.body.setLinearVelocity(pVelocity); // set the start Velocity.
 		projectile.body.setPositionAndAngle(emitPosition, emitDirection); // set the start position.
 		projectile.body.setBullet(false); // Set bullet available
@@ -91,6 +92,7 @@ class ProjectileEmitter implements ITickable
 		projectile.setBirthTime(Lib.getTimer()); // set birth time
 		projectile.setUserData(pBodyType); // set user data.
 	
+		
 		//Add to list and stage.
 		lastEmitTime = Lib.getTimer();
 		pjList.push(projectile);
@@ -105,6 +107,14 @@ class ProjectileEmitter implements ITickable
 		stage.removeChild(p.objectClip);
 		world.destroyBody(p.body);
 		pjList.remove(p);
+	}
+	
+	public function destoryAll() {
+		for (p in pjList) {
+			stage.removeChild(p.objectClip);
+			world.destroyBody(p.body);
+			pjList.remove(p);
+		}
 	}
 	
 
