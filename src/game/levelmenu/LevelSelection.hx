@@ -8,6 +8,7 @@ import game.levelmenu.utils.PageIcon;
 import nme.events.Event;
 import engine.objects.Button;
 import engine.objects.SceneObject;
+import game.levelmenu.levels.LvlBlowIt;
 import nme.Lib;
 
 /**
@@ -23,7 +24,6 @@ class LevelSelection extends BaseScene
 	public function new() 
 	{
 		super();	
-		addEventListener (Event.ENTER_FRAME, this_onEnterFrame);
 	}
 	
 	/**
@@ -73,14 +73,14 @@ class LevelSelection extends BaseScene
 	}
 	
 	private function resizeLevelTable(levelIcon : Button, index : Int) {
-		if (index % 6 == 0 || index % 6 == 1 || index % 6 == 2) {
-			levelIcon.resizeMovieClip(levelIcon.objectClip, 375, 230, 4, ((index % 3) * 5.5 + 3.5) / 18.0, (6.0) / 18.0);
+		if (index % 4 == 0 || index % 4 == 1 ) {
+			levelIcon.resizeMovieClip(levelIcon.objectClip, 375, 230, 3, ((index % 2) * 8.5 + 4.8) / 18.0, (5.0) / 18.0);
 		}else {
-			levelIcon.resizeMovieClip(levelIcon.objectClip, 375, 230, 4, ((index % 3) * 5.5 + 3.5) / 18.0, (13.0) / 18.0);
+			levelIcon.resizeMovieClip(levelIcon.objectClip, 375, 230, 3, ((index % 2) * 8.5 + 4.8) / 18.0, (12.5) / 18.0);
 		}
 	}
 	private function resizePageIcon(page : SceneObject, index : Int) {
-			page.resizeMovieClip(page.objectClip, 113, 113, 40, (index / 1.5 + 8.5) / 18.0, (16.5) / 18.0);
+			page.resizeMovieClip(page.objectClip, 113, 113, 40, (index / 1.5 + 8.5) / 18.0, (17) / 18.0);
 	}
 	
 	private function initialLevelsTable() {
@@ -91,10 +91,8 @@ class LevelSelection extends BaseScene
 		pageIcons.set("Page3", new PageIcon());
 		levelsTable.set("Level1", new LvlTapemIcon());
 		levelsTable.set("Level2", new LvlShakeIt());
-		levelsTable.set("Level3", new LvlComing());
+		levelsTable.set("Level3", new LvlBlowIt());
 		levelsTable.set("Level4", new LvlComing());
-		levelsTable.set("Level5", new LvlComing());
-		levelsTable.set("Level6", new LvlComing());
 	}
 	
 }

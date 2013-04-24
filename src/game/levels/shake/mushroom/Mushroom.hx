@@ -1,4 +1,4 @@
-package game.shake.mushroom;
+package game.levels.shake.mushroom;
 import engine.physics.PhysicsObject;
 import engine.scene.BaseScene;
 import format.display.MovieClip;

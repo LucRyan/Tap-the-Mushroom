@@ -1,4 +1,4 @@
-package game.tap.util;
+package game.levels.tap.util;
 
 import format.display.MovieClip;
 import nme.display.Bitmap;
@@ -10,8 +10,8 @@ import nme.Assets;
 import nme.Lib;
 
 
-import game.tap.util.MushroomFactory;
-import game.tap.mushroom.Mushroom;
+import game.levels.tap.util.MushroomFactory;
+import game.levels.tap.mushroom.Mushroom;
 
 /**
  * ...

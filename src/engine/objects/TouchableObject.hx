@@ -26,6 +26,7 @@ class TouchableObject extends SceneObject
 		objectClip.removeEventListener(MouseEvent.MOUSE_UP, mouseUp, false);
 		objectClip.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver, false);
 		objectClip.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut, false);
+		objectClip.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove, false);
 	}
 	/**
 	 * Add all listener for Touchable Object.
@@ -40,7 +41,9 @@ class TouchableObject extends SceneObject
 		objectClip.addEventListener(MouseEvent.MOUSE_UP, mouseUp, false, 0 , false);
 		objectClip.addEventListener(MouseEvent.MOUSE_OVER, mouseOver, false, 0 , false);
 		objectClip.addEventListener(MouseEvent.MOUSE_OUT, mouseOut, false, 0 , false);
+		objectClip.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove, false, 0 , false);
 
+		
 	}
 	
 	// Mouse functions for Touchable Object.
@@ -55,5 +58,7 @@ class TouchableObject extends SceneObject
 	private function mouseOver(mouseEvent : MouseEvent) { }
 	
 	private function mouseOut(mouseEvent : MouseEvent) { }
+	
+	private function mouseMove(mouseEvent : MouseEvent) { }
 	
 }

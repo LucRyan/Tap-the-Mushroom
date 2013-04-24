@@ -8,8 +8,9 @@ import nme.display.StageScaleMode;
 import nme.events.Event;
 import nme.Assets;
 import nme.Lib;
-import game.tap.TapemALvl;
+import game.levels.tap.TapemALvl;
 import engine.sound.SoundSystem;
+import game.levels.blow.BlowItUpLvl;
 
 
 
@@ -33,7 +34,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		LevelManager.getInstance().changePages(LevelSel);
+		LevelManager.getInstance().changePages(Welcom);
 		LevelManager.getInstance().isFirstTime = false;
 		
 		//TODO: Initialize the Soundsystem

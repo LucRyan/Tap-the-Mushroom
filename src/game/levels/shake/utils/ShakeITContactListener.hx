@@ -1,4 +1,4 @@
-package game.shake.utils;
+package game.levels.shake.utils;
 
 import box2D.collision.B2Manifold;
 import box2D.dynamics.B2ContactImpulse;

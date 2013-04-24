@@ -1,5 +1,5 @@
-package game.tap.mushroom;
-import game.tap.mushroom.Mushroom;
+package game.levels.tap.mushroom;
+import game.levels.tap.mushroom.Mushroom;
 import format.display.MovieClip;
 import engine.sound.SoundSystem;
 

@@ -1,4 +1,4 @@
-package game.tap;
+package game.levels.tap;
 
 import format.display.MovieClip;
 import game.common.utils.ButtonHelper;
@@ -19,10 +19,10 @@ import com.eclecticdesignstudio.motion.Actuate;
 import nme.utils.Timer;
 
 import game.common.displayItem.CountDownTimer;
-import game.tap.mushroom.Mushroom;
-import game.tap.mushroom.MushroomController;
-import game.tap.util.MushroomFactory;
-import game.tap.util.MushroomPlanter;
+import game.levels.tap.mushroom.Mushroom;
+import game.levels.tap.mushroom.MushroomController;
+import game.levels.tap.util.MushroomFactory;
+import game.levels.tap.util.MushroomPlanter;
 import engine.utils.ScreenShaker;
 import engine.scene.BaseScene;
 import engine.utils.SafeRemover;

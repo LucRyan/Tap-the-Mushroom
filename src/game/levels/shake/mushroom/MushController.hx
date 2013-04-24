@@ -1,4 +1,4 @@
-package game.shake.mushroom;
+package game.levels.shake.mushroom;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2TimeStep;
 import engine.objects.SceneObject;

@@ -50,7 +50,7 @@ class SceneObject extends Sprite
 	
 	//Resize the Object
 	//public function resizeObject() : Void { }
-	public function resizeMovieClip(object : Dynamic, originWidth : Int, originHeight : Int, sizeLvl : Int, positionX : Float, positionY : Float) :Void { 
+	public function resizeMovieClip(object : Dynamic, originWidth : Int, originHeight : Int, sizeLvl : Float, positionX : Float, positionY : Float) :Void { 
 		//Size
 		var scaleWidth = Lib.current.stage.stageWidth / sizeLvl; // margin is width/10, and the scale offset is width/40.
 		var scaleHeight = scaleWidth / originWidth * originHeight; // Scale the height with Image ratio.

@@ -1,13 +1,17 @@
 package game.common.scene;
 import game.levelmenu.LevelSelection;
-import game.shake.ShakeItDnLvl;
+import game.levelmenu.Welcome;
+import game.levels.blow.BlowItUpLvl;
+import game.levels.shake.ShakeItDnLvl;
 import nme.display.Sprite;
 import engine.scene.BaseScene;
 import nme.events.Event;
-import game.tap.TapemALvl;
+import game.levels.tap.TapemALvl;
 import engine.sound.SoundSystem;
 import nme.events.TimerEvent;
 import engine.utils.MTimer;
+
+
 import nme.Lib;
 
 /**
@@ -17,8 +21,10 @@ import nme.Lib;
 
  enum LevelsEM {
 	 LevelSel;
+	 Welcom;
 	 TapEmALL;
 	 ShakeIt;
+	 BlowIt;
 	 ScoreBoards;
  }
 
@@ -58,6 +64,8 @@ class LevelManager
 			currentStage = null;
 		}
 		switch(levelId) {
+			case Welcom:
+				currentStage = new Welcome();
 			case LevelSel:
 				currentStage = new LevelSelection();
 				currentStageName = LevelSel;
@@ -67,6 +75,9 @@ class LevelManager
 			case ShakeIt:
 				currentStage = new ShakeItDnLvl();
 				currentStageName = ShakeIt;
+			case BlowIt:
+				currentStage = new BlowItUpLvl();
+				currentStageName = BlowIt;
 			case ScoreBoards:
 				currentStage = new ScoreBoard();
 		}

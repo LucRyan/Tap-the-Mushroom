@@ -4,7 +4,7 @@ import box2D.dynamics.B2World;
 import engine.scene.BaseScene;
 import engine.utils.ITickable;
 import engine.utils.SafeRemover;
-import game.shake.utils.BodyType;
+import game.levels.shake.utils.BodyType;
 import nme.Lib;
 
 /**

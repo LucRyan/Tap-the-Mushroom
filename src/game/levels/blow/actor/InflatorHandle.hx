@@ -1,4 +1,4 @@
-package game.tap.mushroom;
+package game.levels.blow.actor;
 
 import engine.objects.TouchableObject;
 import format.display.MovieClip;
@@ -16,18 +16,13 @@ import engine.sound.SoundSystem;
  * @author Yang Wang
  */
 
-class Mushroom extends TouchableObject
+class InflatorHandle extends TouchableObject
 {
 	
 	public function new(?movieClipPath : String) 
 	{
 		super();
-		loadMovieClip((movieClipPath == null) ? "TaptheMushroom:tm.RedMushroomJump" : movieClipPath );
+		loadMovieClip((movieClipPath == null) ? "TaptheMushroom:tm.InflatorHandle" : movieClipPath );
 		addListener();
-	}
-
-	override public function mouseClick(mouseEvent : MouseEvent) {
-		objectClip.visible = false;
-		SoundSystem.getInstance().playSoundFx("PokeMushroom", 1);
 	}
 }

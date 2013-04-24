@@ -1,4 +1,4 @@
-package game.shake.utils;
+package game.levels.shake.utils;
 import engine.objects.SceneObject;
 
 /**

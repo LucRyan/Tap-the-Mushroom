@@ -1,5 +1,5 @@
-package game.tap.util;
-import game.tap.mushroom.Mushroom;
+package game.levels.tap.util;
+import game.levels.tap.mushroom.Mushroom;
 
 
 /**
