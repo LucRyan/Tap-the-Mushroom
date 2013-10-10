@@ -7,7 +7,7 @@
 	
 	
 	<!-- Android -->
-	<templatePaths path = "MyAndroidManifest.xml" rename="bin/android/bin/AndroidManifest.xml" />
+	<!-- <templatePaths path = "MyAndroidManifest.xml" rename="bin/android/bin/AndroidManifest.xml" />-->
 	 
 	<!-- output -->
 	<app main="Main" file="TaptheMushroom" path="bin" />
@@ -41,7 +41,7 @@
 	<haxeflag name="--js-modern" if="html5" />
 	
 	<!-- Certificate -->
-	<certificate path="key\tap.keystore" password="ks89525"  alias="tap" alias-password="ks89525" />
+	<!--<certificate path="key\tap.keystore" password="ks89525"  alias="tap" alias-password="ks89525" />-->
 	
 
 	

@@ -1,5 +1,6 @@
 package game.common.utils;
 import engine.objects.TextObject;
+import engine.utils.Helper;
 import game.common.button.MenuButton;
 import game.common.button.RestartButton;
 import nme.display.Sprite;
@@ -9,7 +10,7 @@ import nme.display.Sprite;
  * @author Yang Wang
  */
 
-class ButtonHelper 
+class ButtonHelper extends Helper
 {
 
 	var menuButton : MenuButton; // The Button link to menu.
@@ -18,10 +19,12 @@ class ButtonHelper
 	
 	public function new() 
 	{
+		super();
 		initializeButtons();
 	}
 	
-	public function delete() {
+	override public function delete() {
+		super.delete();
 		menuButton.delete();
 		restartButton.delete();
 	}

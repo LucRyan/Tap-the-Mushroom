@@ -1,4 +1,5 @@
 package game.common.utils;
+import engine.utils.Helper;
 import game.common.displayItem.CountDownTimer;
 import nme.display.Sprite;
 
@@ -6,17 +7,19 @@ import nme.display.Sprite;
  * ...
  * @author Yang Wang
  */
-class TimerHelper
+class TimerHelper extends Helper
 {
 
 	var countDownTimer : CountDownTimer;
 	
 	public function new(?totalTime : Int = 5000) 
 	{
+		super();
 		initializeTimer(totalTime);
 	}
 	
-	public function delete() {
+	override public function delete() {
+		super.delete();
 		countDownTimer.delete();
 	}
 	
